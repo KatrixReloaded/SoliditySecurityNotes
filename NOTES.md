@@ -142,6 +142,24 @@ Severity Guide - [4]
 
 
 
+**Scoping process**  
+Refer to minimal-onboarding in `[3]`  
+Check branch  
+```git
+git branch
+```  
+Check the commit hash of the scope and then type
+```git
+git checkout <COMMIT HASH HERE>  
+```  
+Switch to a new branch
+```git
+git switch -c NewProject-audit   \
+```  
+  
+
+
+  
 **References**  
 ----------
 [1]nascentxyz / simple-security-toolkit  
