@@ -102,12 +102,12 @@ Check code coverage with "forge coverage"
 >2. How bad this issue is  
 >3. How to fix the issue  
 
-Layouts and notes on reports - [3]
-Severity Guide - [4]
+Layouts and notes on reports - [3]  
+Severity Guide - [4]  
   
   
   
-
+  
 **Reading a private variable in a smart contract**  
 ---------
 >1. Create a locally running chain  
@@ -146,5 +146,5 @@ Severity Guide - [4]
 ----------
 [1]nascentxyz / simple-security-toolkit  
 [2]ZhangZhuoSJTU / Web3Bugs  
-[3]Cyfrin / security-and-auditing-full-course-s23
+[3]Cyfrin / security-and-auditing-full-course-s23  
 [4]docs.codehawks.com - How to determine a finding severity
