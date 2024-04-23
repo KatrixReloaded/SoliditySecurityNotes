@@ -143,6 +143,7 @@ Severity Guide - [4]
 
 
 **Scoping process**  
+----------
 Refer to minimal-onboarding in `[3]`  
 Check branch  
 ```git
@@ -159,7 +160,7 @@ git switch -c NewProject-audit   \
   
 
 
-  
+
 **References**  
 ----------
 [1]nascentxyz / simple-security-toolkit  
