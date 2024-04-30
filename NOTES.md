@@ -177,15 +177,39 @@ function withdrawBalance() public {
     if(!success) {
         revert();
     }
+
+    locked = false;
 }
 ```  
+Can use OpenZeppelin's `ReentrancyGuard.sol::nonReentrant()` [5] which essentially does the same thing under the hood.   
+A Historical Collection of Reentrancy Attacks -> [6]  
+  
 
 
 
-
+**Weak Randomness**  
+  
+```javascript
+uint256 winnerIndex = uint256(keccak256(abi.encodePacked(msg.sender, block.timestamp, block.difficulty))) % players.length;
+```  
+The values used to create a pseudo-random number can be manipulated or predicted and can be used to get the random number.  
+fixes: Chainlink VRF, Commit Reveal Scheme
+  
+  
+  
+  
+**Integer overflow and underflow**  
+  
+Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value of a datatype. Comes with foundry.  
+  
+  
+  
+  
 **References**  
 ----------
 [1]nascentxyz / simple-security-toolkit  
 [2]ZhangZhuoSJTU / Web3Bugs  
 [3]Cyfrin / security-and-auditing-full-course-s23  
-[4]docs.codehawks.com - How to determine a finding severity
+[4]docs.codehawks.com - How to determine a finding severity  
+[5]@openzeppelin/contracts/util/ReentrancyGuard.sol  
+[6]pcaversaccio / reentrancy-attacks
