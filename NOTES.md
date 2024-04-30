@@ -155,9 +155,31 @@ git checkout <COMMIT HASH HERE>
 ```  
 Switch to a new branch
 ```git
-git switch -c NewProject-audit   \
+git switch -c NewProject-audit   
 ```  
   
+
+
+
+**Reentrancy Soln.**  
+----------  
+```javascript
+bool locked = false;
+//locked is set to see if the function has been entered once, if yes, then revert if tried to reenter
+function withdrawBalance() public {
+    if(locked) revert();
+    locked = true;
+
+    uint256 balance = userBalance[msg.sender];
+    userBalance[msg.sender] = 0;
+
+    (bool success, ) = msg.sender.call{value: balance}("");
+    if(!success) {
+        revert();
+    }
+}
+```  
+
 
 
 
