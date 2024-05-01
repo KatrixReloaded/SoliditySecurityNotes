@@ -1,4 +1,4 @@
-**Transactions - Function call**  
+`**Transactions - Function call**  
 ----------
 1. Nonce: tx count for the account  
 2. Gas Price: price per unit of gas(in wei)  
@@ -89,6 +89,8 @@ Machine-findable bugs and non-machine-findable bugs - [2]
 >informational: //i  
 >questions: //q  
 >found an issue: //@audit  
+>explanation: //e  
+>make sure to follow up: //@followup  
   
 Look for questions after scoping and figure out answers  
 Check code coverage with "forge coverage"  
@@ -212,4 +214,4 @@ Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value o
 [3]Cyfrin / security-and-auditing-full-course-s23  
 [4]docs.codehawks.com - How to determine a finding severity  
 [5]@openzeppelin/contracts/util/ReentrancyGuard.sol  
-[6]pcaversaccio / reentrancy-attacks
+[6]pcaversaccio / reentrancy-attacks`
