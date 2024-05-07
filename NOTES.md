@@ -1,4 +1,4 @@
-`**Transactions - Function call**  
+**Transactions - Function call**  
 ----------
 1. Nonce: tx count for the account  
 2. Gas Price: price per unit of gas(in wei)  
@@ -190,6 +190,7 @@ A Historical Collection of Reentrancy Attacks -> [6]
 
 
 **Weak Randomness**  
+------  
   
 ```javascript
 uint256 winnerIndex = uint256(keccak256(abi.encodePacked(msg.sender, block.timestamp, block.difficulty))) % players.length;
@@ -201,10 +202,54 @@ fixes: Chainlink VRF, Commit Reveal Scheme
   
   
 **Integer overflow and underflow**  
-  
+--------  
+
 Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value of a datatype. Comes with foundry.  
+
+
+
+
+**Invariants**  
+--------  
+    
+Invariants in ERC20 and ERC721 - [7]  
+**1. Stateless Fuzzing - Open**  
+>Stateless fuzzing (often known as just "fuzzing") is when you provide random data to a function to get some invariant or property to break.  
+>  
+>It is "stateless" because after every fuzz run, it resets the state, or it starts over.   
+
+**2. Stateful Fuzzing - Open**  
+>Stateful fuzzing is when you provide random data to your system, and for 1 fuzz run your system starts from the resulting state of the previous input data.  
+>
+>Or more simply, you keep doing random stuff to the same contract.  
+
+**3. Stateful Fuzzing - Handler**  
+>Handler based stateful fuzzing is the same as Open stateful fuzzing, except we restrict the number of "random" things we can do.  
+>
+>If we have too many options, we may never randomly come across something that will actually break our invariant. So we restrict our random inputs to a set of specfic random actions that can be called.  
+
+**4. Formal Verification**  
+>Formal verification is the process of mathematically proving that a program does a specific thing, or proving it doesn't do a specific thing.  
+>
+>For invariants, it would be great to prove our programs always exert our invariant.  
+>
+>One of the most popular ways to do Formal Verification is through Symbolic Execution. Symbolic Execution is a means of analyzing a program to determine what inputs cause each part of a program to execute. It will convert the program to a symbolic expression (hence its name) to figure this out.  
   
-  
+**foundry.toml ->**  
+```
+[fuzz]
+runs = 256
+seed = '0x2'
+
+[invariant]
+runs = 64
+depth = 32
+fail_on_revert = false
+```  
+`seed` helps input the randomness. Different seed == different random runs.  
+`fail_on_revert = false` implies that we only care about the invariant breaking and no other reverts matter. Other reverts executed if set to true.  
+
+
   
   
 **References**  
@@ -214,4 +259,5 @@ Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value o
 [3]Cyfrin / security-and-auditing-full-course-s23  
 [4]docs.codehawks.com - How to determine a finding severity  
 [5]@openzeppelin/contracts/util/ReentrancyGuard.sol  
-[6]pcaversaccio / reentrancy-attacks`
+[6]pcaversaccio / reentrancy-attacks  
+[7]crytic / properties  
