@@ -209,6 +209,16 @@ Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value o
 
 
 
+**Self Destruct**  
+---------  
+  
+If a contract doesn't have a `receive` or `fallback` function, it reverts any attempts to send it any value but an attackerSelfDestruct contract can self-destruct and force the contract to accept the money. This will cause the `address(this).balance == totalBalance` check to fail.  
+
+Check this smart contract for an example - [7]  
+
+
+
+
 **Invariants**  
 --------  
     
@@ -260,4 +270,5 @@ fail_on_revert = false
 [4]docs.codehawks.com - How to determine a finding severity  
 [5]@openzeppelin/contracts/util/ReentrancyGuard.sol  
 [6]pcaversaccio / reentrancy-attacks  
-[7]crytic / properties  
+[7]Cyfrin / sc-exploits-minimized - src/mishandling-of-eth  
+[8]crytic / properties  
