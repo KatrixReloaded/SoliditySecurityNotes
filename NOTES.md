@@ -79,6 +79,7 @@ The Rekt Test
 >Symbolic Execution - MAAT, Z3, Manticore  
   
 Machine-findable bugs and non-machine-findable bugs - [2]  
+Resource for building secure contracts - [10]
   
   
   
@@ -260,6 +261,16 @@ fail_on_revert = false
 `fail_on_revert = false` implies that we only care about the invariant breaking and no other reverts matter. Other reverts executed if set to true.  
 
 
+
+
+**Weird ERC20s**  
+--------
+  
+It is very important to know what tokens one protocol is working with in order to check for weird ERC20 tokens. They can break our contract with their strange states/rules.  
+  
+Weird ERC20 list - [9]  
+
+
   
   
 **References**  
@@ -272,3 +283,5 @@ fail_on_revert = false
 [6]pcaversaccio / reentrancy-attacks  
 [7]Cyfrin / sc-exploits-minimized - src/mishandling-of-eth  
 [8]crytic / properties  
+[9]d-xo / weird-erc20  
+[10]secure-contracts.com  
