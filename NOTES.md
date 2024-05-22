@@ -86,12 +86,18 @@ Resource for building secure contracts - [10]
   
 **Note-taking methodology**  
 ----------
->bug: //!  
->informational: //i  
->questions: //q  
->found an issue: //@audit  
->explanation: //e  
->make sure to follow up: //@followup  
+>Bug: //!  
+>For my information: //i  
+>Questions: //q  
+>Potential issue: //@audit  
+>Explanation: //e  
+>Make sure to follow up: //@follow-up  
+>Informational audit note: //@audit-info  
+>Code location for a filed issue: //@audit-issue  
+>Not an issue, even if it looks like one: //@audit-ok  
+>Notes: //@note  
+>Todo remark: //@todo  
+>Reminder: //@remind  
   
 Look for questions after scoping and figure out answers  
 Check code coverage with "forge coverage"  
