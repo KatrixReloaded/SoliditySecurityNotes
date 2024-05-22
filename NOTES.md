@@ -279,6 +279,14 @@ Weird ERC20 list - [9]
 
   
   
+**Tincho Method**  
+--------  
+  
+After you are done running your automated tools(Slither, Aderyn, etc.), copy down all the in-scope contracts' details (nSLOC, complexity score, etc.) from the Solidity Metrics report and paste it in an Excel sheet. Then sort the sheet in order of ascending complexity score or nSLOC and go through each of them from lowest to highest.  
+
+
+
+
 **References**  
 ----------
 [1]nascentxyz / simple-security-toolkit  
