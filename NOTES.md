@@ -34,7 +34,7 @@ tx = {
   
 >For example-  
 >(bool success, ) = recentWinner.call{value: address(this).balance}("");  
->Here, we change the value (Line 6) field of a transaction directly, the parantheses at the end is where we put the data (Line 7)  
+>Here, we change the value (Line 5) field of a transaction directly, the parantheses at the end is where we put the data (Line 6)  
 >In our {} we are able to pass specific fields of a transaction, like value  
 >In our () we are able to pass data in order to call a specific function but there was no function we wanted to call in Line 34.  
   
