@@ -29,6 +29,12 @@ Run `cast send <Contract_Address> "<fn. sign>" args --rpc-url <RPC_URL> --privat
 `cast call` has the same arguments as above but it is used for calling a function where a value is returned. Calling transaction.  
 `cast --to-base <HEX_VALUE> dec` to convert hex values to decimal values.  
 
-## Random Notes  
+## **zkSync**  
+  
+foundry-zksync installed.  
+To switch back to vanilla Foundry, simply run `founryup`, and to switch back to foundry-zksync, run `foundryup-zksync`  
+
+  
+## **Random Notes**  
 
 `forge fmt` to format your code  
