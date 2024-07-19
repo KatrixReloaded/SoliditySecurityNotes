@@ -31,10 +31,13 @@ Run `cast send <Contract_Address> "<fn. sign>" args --rpc-url <RPC_URL> --privat
 
 ## **zkSync**  
   
+### Setup  
 foundry-zksync installed.  
-To switch back to vanilla Foundry, simply run `founryup`, and to switch back to foundry-zksync, run `foundryup-zksync`  
-
+To switch back to vanilla Foundry, simply run `foundryup`, and to switch back to foundry-zksync, run `foundryup-zksync`  
+Run `forge build --zksync` to compile with zkSync  
   
 ## **Random Notes**  
 
 `forge fmt` to format your code  
+  
+Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on and L2 chain like zkSync.  
