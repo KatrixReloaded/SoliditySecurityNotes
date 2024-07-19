@@ -28,3 +28,7 @@ Then type `cat <wallet_name>` to see the encrypted version of the private key wh
 Run `cast send <Contract_Address> "<fn. sign>" args --rpc-url <RPC_URL> --private-key <PRIVATE_KEY>` to send values to a function as parameters. Sending transaction.   
 `cast call` has the same arguments as above but it is used for calling a function where a value is returned. Calling transaction.  
 `cast --to-base <HEX_VALUE> dec` to convert hex values to decimal values.  
+
+## Random Notes  
+
+`forge fmt` to format your code  
