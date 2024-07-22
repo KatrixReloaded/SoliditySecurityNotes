@@ -75,3 +75,40 @@ Input:
 return abi.encodeCall(Helper.someFunc, ("hello",1337,"world");
 ```  
 Output: Exactly the same  
+  
+  
+## Solidity Return vs. Yul Return  
+  
+Suppose you have set a nonReentrant modifier of your own, and want to reset the status of the function after it has been executed, so that it can be used again later on.  
+```javascript
+uint256 _status = 1;
+uint256 ENTERED = 2;
+uint256 NOT_ENTERED = 1;
+modifier nonReentrant {
+    require(_status != ENTERED);
+    _status = ENTERED;
+  
+    _; // function execution here
+  
+    _status = NOT_ENTERED; // post function execution
+}
+```
+If you are doing the normal solidity return in a function with this above modifier, the EVM understands that there is code to be executed after the function call, and acts accordingly.  
+Example -  
+```javascript
+function testSolidityReturn() public nonReentrant returns(uint256) {
+    return 0x42;
+}
+```
+  
+However, if you are returning in Yul, it is immediate, brutal execution. Nothing runs after that return statement. If you are doing a Yul return in a function with the above modifier, the `_status` will set its value to `ENTERED` and never reset. This will lead to a DoS, since it will now forever be in the `ENTERED` state and reentrancies are not allowed.  
+```javascript
+function testYulReturn() public nonReentrant returns(uint256) {
+    assembly {
+        //mstore(offset,value)
+        mstore(0x00, 0x42);
+        //return(offset,size)
+        return(0x00, 0x20);
+    }
+}
+```
