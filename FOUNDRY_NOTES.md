@@ -11,6 +11,15 @@ Actual deployment on local chain ->
 ```git
 forge script script/DeployContract.sol --rpc-url <LOCAL CHAIN URL> --broadcast <PRIVATE KEY from ANVIL CHAIN>
 ```  
+    
+## Importing from GitHub  
+  
+To import a library from GitHub, we need to run the following command: 
+```bash
+forge install <OWNER-NAME>/<REPO-NAME>@<VERSION> --no-commit
+# For example
+forge install smartcontractkit/chainlink-brownie-contracts@1.1.1 --no-commit
+```
   
 ## **Encrypting Private Key**  
   
@@ -41,3 +50,6 @@ Run `forge build --zksync` to compile with zkSync
 `forge fmt` to format your code  
   
 Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on and L2 chain like zkSync.  
+forge -> Compiling and interacting with contracts  
+cast -> Interacting with contracts that have already been deployed  
+anvil -> To deploy a local blockchain
