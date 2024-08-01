@@ -45,6 +45,28 @@ foundry-zksync installed.
 To switch back to vanilla Foundry, simply run `foundryup`, and to switch back to foundry-zksync, run `foundryup-zksync`  
 Run `forge build --zksync` to compile with zkSync  
   
+## Invariant Testing  
+  
+1. Go through the documentation and look for invariants before even looking at the code
+2. Categorize your invariants based on their properties
+3. Write invariants in order of priority
+4. Bound values to not waste fuzz runs
+  
+```javascript
+// GOOD
+function testDeposit1(uint256 amount) public {
+    amount = bound(amount, 0, address(this).balance);
+    // ...
+}
+
+// BAD
+function testDeposit1(uint256 amount) public {
+    vm.assume(amount > 0); // When 0 is passed as a value, it will not pass through this cheatcode, and will go to the next fuzz run with a different value
+    vm.assume(amount < address(this).balance);
+    // ...
+}
+```
+  
 ## **Random Notes**  
 
 `forge fmt` to format your code  
