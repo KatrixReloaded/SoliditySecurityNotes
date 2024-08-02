@@ -47,11 +47,13 @@ Run `forge build --zksync` to compile with zkSync
   
 ## Invariant Testing  
   
-1. Go through the documentation and look for invariants before even looking at the code
-2. Categorize your invariants based on their properties
-3. Write invariants in order of priority
-4. Bound values to not waste fuzz runs
+1. Go through the documentation and look for invariants before even looking at the code  
   
+2. Categorize your invariants based on their properties  
+  
+3. Write invariants in order of priority  
+  
+4. Bound values to not waste fuzz runs  
 ```javascript
 // GOOD
 function testDeposit1(uint256 amount) public {
@@ -60,12 +62,57 @@ function testDeposit1(uint256 amount) public {
 }
 
 // BAD
-function testDeposit1(uint256 amount) public {
+function testDeposit2(uint256 amount) public {
     vm.assume(amount > 0); // When 0 is passed as a value, it will not pass through this cheatcode, and will go to the next fuzz run with a different value
     vm.assume(amount < address(this).balance);
     // ...
 }
 ```  
+  
+5. Code your tests using the Hoare logic (preconditions, then actions, then postconditions)  
+```javascript
+function addLiquidity(uint amount1, uint amount2) public {
+    // PRECONDITIONS
+    amount1 = clampBetween(...);
+    amount2 = clampBetween(...);
+
+    // ACTIONS
+    bool success = _addLiquidity(amount1, amount2);
+
+    // POSTCONDITIONS
+    if(succes) {
+        // ...
+    }
+}
+```  
+  
+6. Can take about a week to set up your invariant tests. Take a day to figure out all the invariants to test. Second day to set up your environment, foundry invariant tests, etc. You have three days to kind of fine-tune your tests, think about all the scenarios you want to test. Takes time to set it up if a lot of external libraries used.  
+  
+7. Use ghost variables to check "before/after"  
+```javascript
+function deposit(uint256 assets) public virtual {
+    asset.mint(address(this), assets);
+
+    asset.approve(address(token), assets);
+
+    uint256 shares = token.deposit(asset, address(this));
+    // sumBalanceOf is a ghost variable which can be later checked against token contract's total shares
+    sumBalanceOf += shares;
+}
+```  
+  
+8. Check logic against different/deoptimized implementations  
+```javascript
+function invariant_totalDebtEqualsSum() internal view returns (bool) {
+    uint256 totalDebt = vault.totalDebt();
+    uint256 sum = 0;
+    for(uint i = 0; i<positions.length; i++) {
+      sum += positions.getDebt();
+    }
+
+    return sum == totalDebt;
+}
+```
   
 ## **Foundry Commands**  
   
