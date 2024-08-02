@@ -65,7 +65,21 @@ function testDeposit1(uint256 amount) public {
     vm.assume(amount < address(this).balance);
     // ...
 }
-```
+```  
+  
+## **Foundry Commands**  
+  
+- ### `forge test`  
+  - `--match-test` for specifying a test function. `-m` is deprecated.  
+  - `--match-path` for specifying the path of the test contract.  
+  - `--fork-url` for forking any network.  
+  
+## **Foundry Cheatcodes**  
+  
+- `vm.expectRevert(...)` is used when the next LoC is supposed to revert. If not, the test fails.  
+- `vm.prank(address)` sets the provided address as the msg.sender for the next call.  
+- `makeAddr(string)` takes a name as a string and generates an address for the same name.  
+- `vm.deal(address, uint256)` takes an address and gives it an amount of tokens  
   
 ## **Random Notes**  
 
