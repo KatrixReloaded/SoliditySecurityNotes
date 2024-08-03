@@ -112,6 +112,17 @@ function invariant_totalDebtEqualsSum() internal view returns (bool) {
 
     return sum == totalDebt;
 }
+```  
+  
+9. Use multiple actors for more realistic scenarios  
+```javascript
+modifier useActor(uint256 actorIndexSeed) {
+    currentActor = actors[bound(actorIndexSeed, 0, actors.length -1);
+    // If your protocol has many roles/actors, you can set up a modifier like this one and randomly choose an actor for testing
+    vm.startPrank(currentActor);
+    _;
+    vm.stopPrank();
+}
 ```
   
 ## **Foundry Commands**  
