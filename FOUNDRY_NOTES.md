@@ -138,6 +138,7 @@ modifier useActor(uint256 actorIndexSeed) {
 - `vm.prank(address)` sets the provided address as the msg.sender for the next call.  
 - `makeAddr(string)` takes a name as a string and generates an address for the same name.  
 - `vm.deal(address, uint256)` takes an address and gives it an amount of tokens  
+- `hoax(address, uint256)` combination of `vm.prank()` and `vm.deal()`  
   
 ## **Random Notes**  
 
@@ -146,4 +147,10 @@ modifier useActor(uint256 actorIndexSeed) {
 Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on and L2 chain like zkSync.  
 forge -> Compiling and interacting with contracts  
 cast -> Interacting with contracts that have already been deployed  
-anvil -> To deploy a local blockchain
+anvil -> To deploy a local blockchain  
+chisel -> To type and run small snippets of solidity in terminal, maybe for checking something or testing  
+`address` cannot be explicitly cast as `uint256`. It needs to be cast as `uint160` and then as `uint256`.  
+```javascript
+address a = msg.sender;
+return uint256(uint160(a));
+```
