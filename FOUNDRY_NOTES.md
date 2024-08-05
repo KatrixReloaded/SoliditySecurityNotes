@@ -117,13 +117,40 @@ function invariant_totalDebtEqualsSum() internal view returns (bool) {
 9. Use multiple actors for more realistic scenarios  
 ```javascript
 modifier useActor(uint256 actorIndexSeed) {
-    currentActor = actors[bound(actorIndexSeed, 0, actors.length -1);
+    currentActor = actors[bound(actorIndexSeed, 0, actors.length-1);
     // If your protocol has many roles/actors, you can set up a modifier like this one and randomly choose an actor for testing
     vm.startPrank(currentActor);
     _;
     vm.stopPrank();
 }
-```
+```  
+  
+10. Limit the number of targets and selectors the fuzzer is calling (including state vars). In case of Foundry, make sure to manually select the selectors you want to test and in case of Echidna, make sure your state vars are `internal` as it will try to fuzz the public state vars and waste time as they are read-only.  
+  
+11. Check both success and failure cases for max coverage with either `try catch` or `if else`. Echidna case -  
+```javascript
+if(success) {
+    gt(
+        vars.kAfter,
+        vars.kBefore,
+        "P-01 | Adding Liquidity increases K"
+    );
+    // ...
+} else {
+    eq(
+        vars.kAfter,
+        vars.kBefore,
+        "P-08 | Adding liquidity should not change anything if it fails"
+    );
+    // ...
+}
+```  
+  
+12. Think about how your invariants may change depending on the state of the system.  
+    
+13. Always check the code coverage. In Echidna, you can see the coverage with a coverage report, which is an HTML file in which you can see the parts that have been covered with tests. Shows green for parts covered, yellow for parts that haven't been covered properly and red means parts that have not been covered at all.  
+  
+14. Reduce the input space of the fuzzer  
 
 ## **Foundry Commands**  
   
@@ -132,6 +159,10 @@ modifier useActor(uint256 actorIndexSeed) {
   - `--match-path` for specifying the path of the test contract.  
   - `--fork-url` for forking any network.  
   
+- ### `forge snapshot`
+  - Creates a file (`.gas-snapshot`) with the gas costs of the test  
+  - Use with same commands as for `forge test`  
+  
 ## **Foundry Cheatcodes**  
   
 - `vm.expectRevert(...)` is used when the next LoC is supposed to revert. If not, the test fails.  
@@ -139,12 +170,13 @@ modifier useActor(uint256 actorIndexSeed) {
 - `makeAddr(string)` takes a name as a string and generates an address for the same name.  
 - `vm.deal(address, uint256)` takes an address and gives it an amount of tokens  
 - `hoax(address, uint256)` combination of `vm.prank()` and `vm.deal()`  
+- `vm.txGasPrice(uint256)` sets the tx.gasprice() for the rest of the transaction  
   
 ## **Random Notes**  
 
 `forge fmt` to format your code  
   
-Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on and L2 chain like zkSync.  
+Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on an L2 chain like zkSync.  
 forge -> Compiling and interacting with contracts  
 cast -> Interacting with contracts that have already been deployed  
 anvil -> To deploy a local blockchain  
@@ -153,4 +185,5 @@ chisel -> To type and run small snippets of solidity in terminal, maybe for chec
 ```javascript
 address a = msg.sender;
 return uint256(uint160(a));
-```
+```  
+When deploying with anvil and using it, the gas price defaults to 0.  
