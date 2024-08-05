@@ -68,7 +68,7 @@ The Rekt Test
 ----------
 >Test Suites:  
 >Hardhat, Foundry, Brownie, etc.  
-  
+          
 >Static Analysis:  
 >Slither, Aderyn, Mythril  
   
@@ -110,7 +110,7 @@ Check code coverage with "forge coverage"
 >1. Convince the protocol this is an issue  
 >2. How bad this issue is  
 >3. How to fix the issue  
-
+  
 Layouts and notes on reports - [3]  
 Severity Guide - [4]  
   
@@ -147,10 +147,10 @@ Severity Guide - [4]
 >```
 >myPassword
 >```
-
-
-
-
+  
+  
+  
+  
 **Scoping process**  
 ----------
 Refer to minimal-onboarding in `[3]`  
@@ -167,9 +167,9 @@ Switch to a new branch
 git switch -c NewProject-audit   
 ```  
   
-
-
-
+  
+  
+  
 **Reentrancy Soln.**  
 ----------  
 ```javascript
@@ -193,9 +193,9 @@ function withdrawBalance() public {
 Can use OpenZeppelin's `ReentrancyGuard.sol::nonReentrant()` [5] which essentially does the same thing under the hood.   
 A Historical Collection of Reentrancy Attacks -> [6]  
   
-
-
-
+  
+  
+  
 **Weak Randomness**  
 ------  
   
@@ -210,22 +210,22 @@ fixes: Chainlink VRF, Commit Reveal Scheme
   
 **Integer overflow and underflow**  
 --------  
-
+  
 Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value of a datatype. Comes with foundry.  
-
-
-
-
+  
+  
+  
+  
 **Self Destruct**  
 ---------  
   
 If a contract doesn't have a `receive` or `fallback` function, it reverts any attempts to send it any value but an attackerSelfDestruct contract can self-destruct and force the contract to accept the money. This will cause the `address(this).balance == totalBalance` check to fail.  
-
+  
 Check this smart contract for an example - [7]  
-
-
-
-
+  
+  
+  
+  
 **Invariants**  
 --------  
     
@@ -234,17 +234,17 @@ Invariants in ERC20 and ERC721 - [7]
 >Stateless fuzzing (often known as just "fuzzing") is when you provide random data to a function to get some invariant or property to break.  
 >  
 >It is "stateless" because after every fuzz run, it resets the state, or it starts over.   
-
+  
 **2. Stateful Fuzzing - Open**  
 >Stateful fuzzing is when you provide random data to your system, and for 1 fuzz run your system starts from the resulting state of the previous input data.  
 >
 >Or more simply, you keep doing random stuff to the same contract.  
-
+  
 **3. Stateful Fuzzing - Handler**  
 >Handler based stateful fuzzing is the same as Open stateful fuzzing, except we restrict the number of "random" things we can do.  
 >
 >If we have too many options, we may never randomly come across something that will actually break our invariant. So we restrict our random inputs to a set of specfic random actions that can be called.  
-
+  
 **4. Formal Verification**  
 >Formal verification is the process of mathematically proving that a program does a specific thing, or proving it doesn't do a specific thing.  
 >
@@ -265,28 +265,28 @@ fail_on_revert = false
 ```  
 `seed` helps input the randomness. Different seed == different random runs.  
 `fail_on_revert = false` implies that we only care about the invariant breaking and no other reverts matter. Other reverts executed if set to true.  
-
-
-
-
+  
+  
+  
+  
 **Weird ERC20s**  
 --------
   
 It is very important to know what tokens one protocol is working with in order to check for weird ERC20 tokens. They can break our contract with their strange states/rules.  
   
 Weird ERC20 list - [9]  
-
-
+  
+  
   
   
 **Tincho Method**  
 --------  
   
 After you are done running your automated tools(Slither, Aderyn, etc.), copy down all the in-scope contracts' details (nSLOC, complexity score, etc.) from the Solidity Metrics report and paste it in an Excel sheet. Then sort the sheet in order of ascending complexity score or nSLOC and go through each of them from lowest to highest.  
-
-
-
-
+  
+  
+  
+  
 **References**  
 ----------
 [1]nascentxyz / simple-security-toolkit  
