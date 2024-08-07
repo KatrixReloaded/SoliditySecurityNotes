@@ -72,6 +72,11 @@ Run `forge build --zksync` to compile with zkSync
 - `hoax(address, uint256)` combination of `vm.prank()` and `vm.deal()`  
 - `vm.txGasPrice(uint256)` sets the tx.gasprice() for the rest of the transaction  
   
+## **Foundry Tools**  
+  
+- ### `Cyfrin/foundry-devops`  
+  - `./src/DevOpsTools.sol` - Can be used to get the most recent deployment of your contract. Need to set `ffi = true` in `foundry.toml` so that foundry can run bash scripts on your device, preferred to keep it as `false` in general.  
+
 ## **Random Notes**    
   
 Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on an L2 chain like zkSync.  
