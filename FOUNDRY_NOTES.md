@@ -30,7 +30,7 @@ Use the account and sender flag when running Foundry commands like this: `forge 
 If actually deploying to, for example, Sepolia, we would also add `--verify --etherscan-api-key`.  
 Type `cast wallet list` to check the list of wallets.  
 (Can also go to home directory, then `cd ./foundry/keystores/`, then `ls` to see list of keystores.)  
-Then type `cat <wallet_name>` to see the encrypted version of the private key which follows ERC-2335.  
+Then type `cast <wallet_name>` to see the encrypted version of the private key which follows ERC-2335.  
   
 ## **Call and send with Command-line**  
   
