@@ -424,6 +424,15 @@ if(success) {
   
   
   
+**Decoding function calls in MetaMask**  
+----------  
+  
+Before approving/confirming a transaction on MetaMask, check the data section and the hex section, run `cast sig <function-sig>` to check the desired hex, and if it doesn't match, might be a malicious call.  
+If there are parameters passed, run `cast --calldata-decode <function-sig> <calldata/hex value>` and it will tell you what parameters were passed.  
+  
+  
+  
+  
 **References**  
 ----------
 [1]nascentxyz / simple-security-toolkit  
