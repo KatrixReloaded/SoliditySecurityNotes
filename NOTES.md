@@ -433,6 +433,32 @@ If there are parameters passed, run `cast --calldata-decode <function-sig> <call
   
   
   
+**Generating a random number (Chainlink VRF)**  
+----------  
+  
+1st step: `docs.chain.link/vrf`  
+2nd step: Create a subscription in subscription manager  
+3rd step: Create a fund the subscription  
+4th step: Use the subscription ID while deploying the contract  
+5th step: Add a consumer contract to use the random number by giving the deployed contract address  
+Check [12] for sample code using Chainlink VRF and natspec  
+You need to mention how and where you are using the RNG in your contract and use it in the `fulfillRandomWords` function  
+  
+  
+  
+  
+**Chainlink Automation (Keepers)**  
+----------  
+  
+1st step: `docs.chain.link/chainlink-automation`  
+2nd step: You will mostly be using a custom-based upkeep, so register one  
+3rd step: There are two functions that Chainlink needs to automate your code: `checkUpkeep()` and `performUpkeep()`. Add those functions    
+4th step: `checkUpkeep() returns(bool upkeepNeeded,)` checks the conditions required for the next automated call and if they are met, it will call `performUpkeep()`.  
+Check [12] for sample code using Chainlink Automation and natspec
+  
+  
+  
+  
 **References**  
 ----------
 [1]nascentxyz / simple-security-toolkit  
@@ -445,4 +471,5 @@ If there are parameters passed, run `cast --calldata-decode <function-sig> <call
 [8]crytic / properties  
 [9]d-xo / weird-erc20  
 [10]secure-contracts.com  
-[11]crytic / building-secure-contracts / program-analysis / echidna / exercises / exercise2
+[11]crytic / building-secure-contracts / program-analysis / echidna / exercises / exercise2  
+[12]KatrixReloaded / FoundryLottery  
