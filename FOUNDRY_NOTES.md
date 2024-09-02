@@ -71,6 +71,9 @@ Run `forge build --zksync` to compile with zkSync
 - `vm.deal(address, uint256)` takes an address and gives it an amount of tokens  
 - `hoax(address, uint256)` combination of `vm.prank()` and `vm.deal()`  
 - `vm.txGasPrice(uint256)` sets the tx.gasprice() for the rest of the transaction  
+- `vm.warp(uint256)` alters block.timestamp  
+- `vm.expectEmit(bool,bool,bool,bool, address)` checks if an event was emitted. The first three bool values are for indexed values emitted with events, and the fourth one is for any non-indexed values present in the events. The address is of the contract.  
+- `vm.roll(uint256)` alters block.number
   
 ## **Foundry Tools**  
   
@@ -79,14 +82,14 @@ Run `forge build --zksync` to compile with zkSync
 
 ## **Random Notes**    
   
-Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on an L2 chain like zkSync.  
-forge -> Compiling and interacting with contracts  
-cast -> Interacting with contracts that have already been deployed  
-anvil -> To deploy a local blockchain  
-chisel -> To type and run small snippets of solidity in terminal, maybe for checking something or testing  
-`address` cannot be explicitly cast as `uint256`. It needs to be cast as `uint160` and then as `uint256`.  
-```javascript
-address a = msg.sender;
-return uint256(uint160(a));
-```  
-When deploying with anvil and using it, the gas price defaults to 0.  
+> Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on an L2 chain like zkSync.  
+> forge -> Compiling and interacting with contracts  
+> cast -> Interacting with contracts that have already been deployed  
+> anvil -> To deploy a local blockchain  
+> chisel -> To type and run small snippets of solidity in terminal, maybe for checking something or testing  
+> `address` cannot be explicitly cast as `uint256`. It needs to be cast as `uint160` and then as `uint256`.  
+> ```javascript
+> address a = msg.sender;
+> return uint256(uint160(a));
+> ```  
+> When deploying with anvil and using it, the gas price defaults to 0.  
