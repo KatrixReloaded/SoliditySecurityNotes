@@ -51,6 +51,7 @@ Run `forge build --zksync` to compile with zkSync
   - `--match-test` for specifying a test function. `-m` is deprecated.  
   - `--match-path` for specifying the path of the test contract.  
   - `--fork-url` for forking any network.  
+  - `--gas-report` for gas report.  
   
 - ### `forge snapshot`
   - Creates a file (`.gas-snapshot`) with the gas costs of the test  
@@ -62,6 +63,9 @@ Run `forge build --zksync` to compile with zkSync
 - ### `forge inspect`  
   - `<CONTRACT NAME> storageLayout` shows the storage of the contract  
   - `constant` and `immutable` global variables do not show up in storage  
+  
+- ### `forge coverage`  
+  - `--report debug` gives the details of all tests and the lines that aren't covered by the tests. Adding ` > <FILE_NAME>.txt` to it would store the output in a txt file in the directory.  
   
 ## **Foundry Cheatcodes**  
   
@@ -82,14 +86,14 @@ Run `forge build --zksync` to compile with zkSync
 
 ## **Random Notes**    
   
-> Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on an L2 chain like zkSync.  
-> forge -> Compiling and interacting with contracts  
-> cast -> Interacting with contracts that have already been deployed  
-> anvil -> To deploy a local blockchain  
-> chisel -> To type and run small snippets of solidity in terminal, maybe for checking something or testing  
-> `address` cannot be explicitly cast as `uint256`. It needs to be cast as `uint160` and then as `uint256`.  
+> - Gas costs can be calculated by taking gas used in testnet, multiply by latest gas price on mainnet and convert to USD. Visible that Eth mainnet is very expensive so prefer to deploy on an L2 chain like zkSync.  
+> - forge -> Compiling and interacting with contracts  
+> - cast -> Interacting with contracts that have already been deployed  
+> - anvil -> To deploy a local blockchain  
+> - chisel -> To type and run small snippets of solidity in terminal, maybe for checking something or testing  
+> - `address` cannot be explicitly cast as `uint256`. It needs to be cast as `uint160` and then as `uint256`.  
 > ```javascript
 > address a = msg.sender;
 > return uint256(uint160(a));
 > ```  
-> When deploying with anvil and using it, the gas price defaults to 0.  
+> - When deploying with anvil and using it, the gas price defaults to 0.  
