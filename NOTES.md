@@ -412,14 +412,14 @@ if(success) {
 ----------
   
 - Needs the `echidna_` prefix for every function identifier for Echidna to be able to realize its inputs. (PROPERTY TESTING)  
-- `echidna-test <file_name> --contract <test_contract_name>` for running Echidna.  
+- `echidna-test <test_file_name> --contract <test_contract_name>` for running Echidna.  
 - Declare a test function without the echidna prefix, can use `test_`prefix instead, write code for asserting a condition, and run echidna with the following input at the end: `--test-mode assertion`. This allows you to add parameters to the test as well. (ASSERTION TESTING) [11]  
 - Testing system-level invariants require initialization  
   - **Simple initialization**  
     - Deploy everything in the constructor  
   - **Complex initialization**  
     - Leverage your unit tests framework with etheno `//q what is etheno?`  
-  - **NOTE: Function-level invariants may also need some system initialization**
+  - **NOTE: Function-level invariants may also need some system initialization**  
   
   
   
