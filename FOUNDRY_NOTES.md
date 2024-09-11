@@ -77,7 +77,9 @@ Run `forge build --zksync` to compile with zkSync
 - `vm.txGasPrice(uint256)` sets the tx.gasprice() for the rest of the transaction  
 - `vm.warp(uint256)` alters block.timestamp  
 - `vm.expectEmit(bool,bool,bool,bool, address)` checks if an event was emitted. The first three bool values are for indexed values emitted with events, and the fourth one is for any non-indexed values present in the events. The address is of the contract.  
-- `vm.roll(uint256)` alters block.number
+- `vm.roll(uint256)` alters block.number  
+- `vm.recordLogs()` records all the emitted events  
+- `vm.getRecordedLogs()` gets all the recorded logs in an array of Log objects, defined in `forge-std/Vm.sol`  
   
 ## **Foundry Tools**  
   
