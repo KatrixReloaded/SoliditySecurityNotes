@@ -421,6 +421,15 @@ if(success) {
     - Leverage your unit tests framework with etheno `//q what is etheno?`  
   - **NOTE: Function-level invariants may also need some system initialization**  
   
+- Medusa can be used for a more detailed fuzz test  
+  - `medusa init` is the first command, generates a .json file which can be modified based on our requirements and to avoid using flags in the cmd  
+    - In `medusa.json`, `targetContracts` sets the contract containing the test functions for fuzzing  
+    - `assertionTesting` section should have `enabled` set to `true` for assertion testing and `enabled` set to `false` for `propertyTesting`, and vice-versa for property testing  
+  - `medusa fuzz` is the command to run the test  
+  
+- Echidna has its own set of cheatcodes in `hevm`  
+  - They are almost the same as the cheatcodes in Foundry  
+  
   
   
   
