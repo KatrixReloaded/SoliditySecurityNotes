@@ -48,10 +48,11 @@ Run `forge build --zksync` to compile with zkSync
 ## **Foundry Commands**  
   
 - ### `forge test`  
-  - `--match-test` for specifying a test function. `-m` is deprecated.  
-  - `--match-path` for specifying the path of the test contract.  
-  - `--fork-url` for forking any network.  
-  - `--gas-report` for gas report.  
+  - `--match-test` for specifying a test function. `-m` is deprecated  
+  - `--match-path` for specifying the path of the test contract  
+  - `--fork-url` for forking any network  
+  - `--gas-report` for gas report  
+  - `--debug` for inline opcode debugger  
   
 - ### `forge snapshot`
   - Creates a file (`.gas-snapshot`) with the gas costs of the test  
@@ -65,18 +66,18 @@ Run `forge build --zksync` to compile with zkSync
   - `constant` and `immutable` global variables do not show up in storage  
   
 - ### `forge coverage`  
-  - `--report debug` gives the details of all tests and the lines that aren't covered by the tests. Adding ` > <FILE_NAME>.txt` to it would store the output in a txt file in the directory.  
+  - `--report debug` gives the details of all tests and the lines that aren't covered by the tests. Adding ` > <FILE_NAME>.txt` to it would store the output in a txt file in the directory  
   
 ## **Foundry Cheatcodes**  
   
-- `vm.expectRevert(...)` is used when the next LoC is supposed to revert. If not, the test fails.  
-- `vm.prank(address)` sets the provided address as the msg.sender for the next call.  
-- `makeAddr(string)` takes a name as a string and generates an address for the same name.  
+- `vm.expectRevert(...)` is used when the next LoC is supposed to revert. If not, the test fails  
+- `vm.prank(address)` sets the provided address as the msg.sender for the next call  
+- `makeAddr(string)` takes a name as a string and generates an address for the same name  
 - `vm.deal(address, uint256)` takes an address and gives it an amount of tokens  
 - `hoax(address, uint256)` combination of `vm.prank()` and `vm.deal()`  
 - `vm.txGasPrice(uint256)` sets the tx.gasprice() for the rest of the transaction  
 - `vm.warp(uint256)` alters block.timestamp  
-- `vm.expectEmit(bool,bool,bool,bool, address)` checks if an event was emitted. The first three bool values are for indexed values emitted with events, and the fourth one is for any non-indexed values present in the events. The address is of the contract.  
+- `vm.expectEmit(bool,bool,bool,bool, address)` checks if an event was emitted. The first three bool values are for indexed values emitted with events, and the fourth one is for any non-indexed values present in the events. The address is of the contract  
 - `vm.roll(uint256)` alters block.number  
 - `vm.recordLogs()` records all the emitted events  
 - `vm.getRecordedLogs()` gets all the recorded logs in an array of Log objects, defined in `forge-std/Vm.sol`  
@@ -84,7 +85,7 @@ Run `forge build --zksync` to compile with zkSync
 ## **Foundry Tools**  
   
 - ### `Cyfrin/foundry-devops`  
-  - `./src/DevOpsTools.sol` - Can be used to get the most recent deployment of your contract. Need to set `ffi = true` in `foundry.toml` so that foundry can run bash scripts on your device, preferred to keep it as `false` in general.  
+  - `./src/DevOpsTools.sol` - Can be used to get the most recent deployment of your contract. Need to set `ffi = true` in `foundry.toml` so that foundry can run bash scripts on your device, preferred to keep it as `false` in general  
 
 ## **Random Notes**    
   
