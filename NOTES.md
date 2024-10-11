@@ -22,6 +22,7 @@
 >call: how we call functions to change the state of the blockchain  
 >staticcall: this is how (at a low level) we do our "view" or "pure" function calls, and potentially don't change the blockchain  
   
+```javascript
 tx = {  
     nonce: nonce,  
     gasPrice: 100000000,  
@@ -30,7 +31,8 @@ tx = {
     value: 0,  
     data: "0x608060...0f0345", //EVM level data, low level  
     chainId: 1337,  
-}  
+} 
+``` 
   
 >For example-  
 >(bool success, ) = recentWinner.call{value: address(this).balance}("");  
