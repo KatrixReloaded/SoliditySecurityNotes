@@ -470,6 +470,38 @@ Check [12] for sample code using Chainlink Automation and natspec
   
   
   
+**Notes from Cergyk.eth**  
+----------  
+  
+### Threat Modelling  
+- What actors interact?  
+- Which roles can I impersonate to impact what others?  
+  
+### Questions  
+- Follow up a trail of questions  
+  - What prevents me from just withdrawing everything?  
+  - What about underlying state changes?  
+- Gather new, more focused questions by following the trail  
+- Repeat!  
+  
+### Introduce Complexity  
+- Unfrequent actions  
+- Sequence of actions that could break the protocol  
+- Interoperability with external protocols  
+- Collusion of multiple actors  
+  
+### Steelman Ideas  
+- Confirm your mental models/ideas by playing with tests  
+- Make sure dev missed something  
+  - Identify wrong assumptions  
+  - Make sure the exploit has reasonable complexity according to codebase  
+- Knowing the stack and language  
+  - Helps to model attack paths correctly  
+  - Reduce false positives  
+  
+  
+  
+  
 **Useful Links**  
 ----------  
   
