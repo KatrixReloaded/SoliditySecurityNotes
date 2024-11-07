@@ -510,6 +510,7 @@ Check [12] for sample code using Chainlink Automation and natspec
 > 3. [**etherscan.deth.net**](etherscan.deth.net) while looking at any verified contracts on `etherscan.io`, change the postfix to `.deth.net` to see the code in a virtual VSC sim  
 > 4. [**Ethereum EIPs**](eips.ethereum.org)   
 > 5. [**ZKSync documentation**](docs.zksync.io)  
+> 6. [**EVM Opcodes**](evm.codes)  
   
   
   
