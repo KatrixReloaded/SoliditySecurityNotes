@@ -116,3 +116,17 @@ function testYulReturn() public nonReentrant returns(uint256) {
 ## Assembly with Huff and Yul  
   
 Huff and Yul are low-level languages for writing smart contracts. They can be used to make code insanely optimized for gas.  
+  
+- Everything costs gas. Solidity automatically identifies which variable goes in memory and which variable goes in storage.  
+    - Storing in memory(`MSTORE`) costs a minimum of 3 gas while storing in storage(`SSTORE`) costs a minimum of 100 gas.  
+    - Adding two values from stack (`ADD`) takes 3 gas. It takes two values, a(eg., `PUSH1 0x01`) and b(eg., `PUSH1 0x03`), from stack and returns the sum of the two(eg., `PUSH1 0x04`). It will only add the two values at the top of the stack.  
+    - `PUSH<number>` adds a value to the stack. The `<number>` defines the number of bytes of the data. `PUSH0` pushes 0 to the stack.  
+    - `CALLDATALOAD` loads the first 32 bytes of calldata  
+    - `SHR` shifts a 32-byte value to the right by the amount of bits specified  
+    - `JUMPI` jumps to a destination program counter if a condition is met  
+  
+### Huff  
+- Commands-  
+    - `huffc <file-location>` - To compile the code  
+    - `huffc <file-location> -b` - To compile the code and get the bytecode of the smart contract  
+    - `huffc <file-location> --bin-runtime` - To compile the code and get the runtime bytecode  
