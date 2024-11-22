@@ -502,6 +502,20 @@ Check [12] for sample code using Chainlink Automation and natspec
   
   
   
+**Transaction Displacement Attacks**  
+----------  
+  
+An attacker replaces a legitimate transaction with their own, to steal something of value intended for the legitimate transaction's sender.  
+Examples - 
+- Alice tries to register a domain name but Mallory does it first  
+- Alice tries to submit a bug but Mallory steals it and submits it first  
+- Alice tries to submit a bid in an auction and Mallory is copying it  
+  
+
+  
+  
+  
+  
 **Useful Links**  
 ----------  
   
@@ -517,15 +531,24 @@ Check [12] for sample code using Chainlink Automation and natspec
   
 **References**  
 ----------
-[1]nascentxyz / simple-security-toolkit  
-[2]ZhangZhuoSJTU / Web3Bugs  
-[3]Cyfrin / security-and-auditing-full-course-s23  
-[4]docs.codehawks.com - How to determine a finding severity  
-[5]@openzeppelin/contracts/util/ReentrancyGuard.sol  
-[6]pcaversaccio / reentrancy-attacks  
-[7]Cyfrin / sc-exploits-minimized - src/mishandling-of-eth  
-[8]crytic / properties  
-[9]d-xo / weird-erc20  
-[10]secure-contracts.com  
-[11]crytic / building-secure-contracts / program-analysis / echidna / exercises / exercise2  
-[12]KatrixReloaded / FoundryLottery  
+[1] nascentxyz / simple-security-toolkit  
+[2] ZhangZhuoSJTU / Web3Bugs  
+[3] Cyfrin / security-and-auditing-full-course-s23  
+[4] docs.codehawks.com - How to determine a finding severity  
+[5] @openzeppelin/contracts/util/ReentrancyGuard.sol  
+[6] pcaversaccio / reentrancy-attacks  
+[7] Cyfrin / sc-exploits-minimized - src/mishandling-of-eth  
+[8] crytic / properties  
+[9] d-xo / weird-erc20  
+[10] secure-contracts.com  
+[11] crytic / building-secure-contracts / program-analysis / echidna / exercises / exercise2  
+[12] KatrixReloaded / FoundryLottery  
+  
+  
+  
+  
+**Questions**  
+----------  
+&#x2610; What are Linux ELF binaries?  
+&#x2610; What are WASM modules?  
+&#x2610; What are Linux packages, managers, kernel, distros, etc.?  
