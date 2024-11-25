@@ -124,9 +124,19 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
     - `CALLDATALOAD` loads the first 32 bytes of calldata  
     - `SHR` shifts a 32-byte value to the right by the amount of bits specified  
     - `JUMPI` jumps to a destination program counter if a condition is met  
+    - `DUP1` duplicates the value on top of the stack.  
+    - `REVERT` reverts the code so that if no conditions are met, the function doesn't keep executing whatever is next.  
   
 ### Huff  
 - Commands-  
     - `huffc <file-location>` - To compile the code  
     - `huffc <file-location> -b` - To compile the code and get the bytecode of the smart contract  
     - `huffc <file-location> --bin-runtime` - To compile the code and get the runtime bytecode  
+  
+- Features-  
+    - Just to make the code easier to understand and to avoid having to manually get each function selector.  
+        - 1st step : `#define function function_name() nonpayable returns() {}` - Define like in Solidity, nonpayable keyword in Huff.  
+        - 2nd step : Instead of pushing the function sig manually like `0x12345678`, you can write the `__FUNC_SIG(function_name)` statement.  
+    - Huff makes working with storage easier. Every storage slot is going to be 32 bytes.  
+        - `FREE_STORAGE_POINTER()` essentially a counter that provides with a slot that is currently open to store data in.  
+        
