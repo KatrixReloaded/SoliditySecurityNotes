@@ -511,7 +511,53 @@ Examples -
 - Alice tries to submit a bug but Mallory steals it and submits it first  
 - Alice tries to submit a bid in an auction and Mallory is copying it  
   
+**How to NOT miss vulnerabilities**  
+----------  
+  
+- Collaboration helps  
+- Don't skip external calls in functions  
+- Be skeptical, don't trust the devs and be like, "he's so good, can't make mistakes bruh"  
+- Pls do write test cases  
+- Download the fkin contracts in your brain  
+- Always check for receive/fallback functions  
+- Always check if parallel state variables are in sync  
+- Write down notes, in-code comments  
+- If you can create a diagram of how functions/contracts interact with each other, do it  
+- Ask the devs questions  
+- Don't examine each contract in isolation  
+- Look at test coverage  
+- Write PoCs  
+- Have an attacker's mindset, not a dev's  
+- Eat/sleep well lol  
+  
+  
+  
+  
+**Some additional bugs**  
+--------
+- If you delete a struct that contains a list or a mapping, it does not recursively delete the list or mapping.  
+```javascript
+struct Object {
+    mapping(uint256 => uint256) idToId;
+}
+mapping(uint256 => Object) objects;
 
+function createObj(uint256 x, uint256 y, uint256 z) public {
+    objects[x].idToId[y] = z;
+}
+
+function readObj(uint256 x, uint256 y) public view returns(uint256) {
+    return objects[x].idToId[y];
+}
+
+function deleteObj(uint256 x) public {
+    delete objects[x];
+}
+```
+In this case, if I delete x and then call readObj again, I'll still see the value z, as it does not delete the mapping idToId.  
+- In upgradeable contracts, the immutable variables are not migrated to the upgraded contract since they are not in storage.  
+- MSTORE does not update the free memory pointer. If you have a normal Solidity code after an assembly block that uses MSTORE, most likely, the Solidity code is overwriting whatever was stored using MSTORE.  
+- Be wary of precision loss and division by 0 whenever division is used.  
   
   
   
