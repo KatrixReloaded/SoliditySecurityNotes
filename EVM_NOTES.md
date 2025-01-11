@@ -126,6 +126,27 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
     - `JUMPI` jumps to a destination program counter if a condition is met  
     - `DUP1` duplicates the value on top of the stack.  
     - `REVERT` reverts the code so that if no conditions are met, the function doesn't keep executing whatever is next.  
+    - In memory, the first slot is `0x00`, the second slot is not `0x01`, it is `0x20`, since it is the first slot after 32-bytes, then `0x40`, and so on.  
+    - `0x40` is the free memory pointer **in Solidity**. You access that to see which slot in memory is free to use. During contract creation, `0x80`(128-bytes) is set as the free memory slot. In Huff, we usually don't use 0x40 as the free memory pointer as we didn't need it.  
+      - Example -  
+        ```javascript
+        contract Example {
+            function addTwo(uint256 _param) public pure returns(uint256) {
+                uint256 two = 2; // This line as reference
+                return _param + two;
+            }
+        }
+        ```  
+
+        That particular line's opcode:  
+        ```
+        PUSH1 0x2       // [2]
+        PUSH1 0x40      // [0x40, 2]
+        MLOAD           // [0x80, 2] (Loads the free memory slot from 0x40)
+        MSTORE          // [] (Stores the value 2 in the slot 0x80)
+        ```  
+        After that is stored at 0x80, the free memory pointer will point to `0x6a`, which is 32-bytes after `0x80`  
+    
   
 ### Huff  
 - Commands-  
