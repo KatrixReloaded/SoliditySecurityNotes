@@ -117,6 +117,7 @@ function testYulReturn() public nonReentrant returns(uint256) {
   
 Huff and Yul are low-level languages for writing smart contracts. They can be used to make code insanely optimized for gas.  
   
+### Opcodes  
 - Everything costs gas. Solidity automatically identifies which variable goes in memory and which variable goes in storage.  
 - Storing in memory(`MSTORE`) costs a minimum of 3 gas while storing in storage(`SSTORE`) costs a minimum of 100 gas.  
 - Adding two values from stack (`ADD`) takes 3 gas. It takes two values, a(eg., `PUSH1 0x01`) and b(eg., `PUSH1 0x03`), from stack and returns the sum of the two(eg., `PUSH1 0x04`). It will only add the two values at the top of the stack.  
@@ -124,7 +125,7 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
 - `CALLDATALOAD` loads the first 32 bytes of calldata  
 - `SHR` shifts a 32-byte value to the right by the amount of bits specified  
 - `JUMPI` jumps to a destination program counter if a condition is met  
-- `DUP1` duplicates the value on top of the stack.  
+- `DUP1` duplicates the value on top of the stack. Similarly, `DUP2` adds a duplicate of the value second in the stack to the top of the stack, and so on.  
 - `REVERT` reverts the code so that if no conditions are met, the function doesn't keep executing whatever is next.  
 - In memory, the first slot is `0x00`, the second slot is not `0x01`, it is `0x20`, since it is the first slot after 32-bytes, then `0x40`, and so on.  
 - `0x40` is the free memory pointer **in Solidity**. You access that to see which slot in memory is free to use. During contract creation, `0x80`(128-bytes) is set as the free memory slot. In Huff, we usually don't use 0x40 as the free memory pointer as we didn't need it.  
@@ -148,6 +149,7 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
     After that is stored at 0x80, the free memory pointer will point to `0x6a`, which is 32-bytes after `0x80`  
 - `CODECOPY` stores the runtime code in memory on-chain. It takes the top 3 values from stack, the top one being the byte offset in memory where result will be copied, the next one being the offset in code from where we need to start copying and the third one being the byte size to copy.   
 - `CALLDATASIZE` pushes the byte size of the calldata to stack.  
+- `SWAP1` swaps the places of the value on top of the stack with the value right below it. Similarly, `SWAP2` swaps the places of the value on top of the stack and the value third in stack, and so on.  
   
 ### Huff  
 - Commands-  
