@@ -573,7 +573,7 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 > 6. [**EVM Opcodes**](evm.codes)  
 > 7. [**Dedaub**](app.dedaub.com)  is an EVM bytecode decompiler.  
 > 8. [**Heimdall-rs**](https://github.com/Jon-Becker/heimdall-rs) is an EVM toolkit that can be used for EVM bytecode disassembly/decompiling.  
-> 9. [**The Book of Auditing**](https://web3-sec.gitbook.io/art-of-auditing) Whenever you feel stuck or just need some motivation.  
+> 9. [**The Art of Auditing**](https://web3-sec.gitbook.io/art-of-auditing) Whenever you feel stuck or just need some motivation.  
   
   
   
