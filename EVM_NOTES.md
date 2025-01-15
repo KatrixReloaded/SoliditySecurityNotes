@@ -150,6 +150,7 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
 - `CODECOPY` stores the runtime code in memory on-chain. It takes the top 3 values from stack, the top one being the byte offset in memory where result will be copied, the next one being the offset in code from where we need to start copying and the third one being the byte size to copy.   
 - `CALLDATASIZE` pushes the byte size of the calldata to stack.  
 - `SWAP1` swaps the places of the value on top of the stack with the value right below it. Similarly, `SWAP2` swaps the places of the value on top of the stack and the value third in stack, and so on.  
+- **Note:** Go through EVM precompiles, which are special addresses bundled with EVM to perform certain tasks. You can see them in some bytecodes with hardcoded addresses or `STATICCALL`s.  
   
 ### Huff  
 - Commands-  
@@ -164,3 +165,14 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
     - Huff makes working with storage easier. Every storage slot is going to be 32 bytes.  
         - `FREE_STORAGE_POINTER()` essentially a counter that provides with a slot that is currently open to store data in.  
         
+### Yul  
+- Inline assembly language, can be integrated into Solidity code.  
+- `datacopy` keyword is the same as `CODECOPY` in opcodes.  
+- Use `let` to create a variable in Yul, followed by identifier and then `:=` as the assignment operator.  
+- Functions are created as `function fnName() -> n {...}`, where `-> n` implies that the function will return a value n. Remove that part if no value needs to be returned by function.  
+- To run,  
+  - Specify solc compiler version using `solc-select use <VERSION>`  
+  - Then, run `solc --strict-assembly --optimize --optimize-runs 2000 <FILE_LOCATION> --bin`  
+    - `--optimize-runs 2000`, 2000 here is just used as an example, any value can be used here depending on your specifications; this step can be skipped too.  
+    - `--bin` is to get the binary output (bytecode)  
+    - Add ` | grep 60` to just get the binary output line  
