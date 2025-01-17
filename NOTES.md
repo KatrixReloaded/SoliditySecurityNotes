@@ -306,7 +306,7 @@ After you are done running your automated tools(Slither, Aderyn, etc.), copy dow
   
 2. Categorize your invariants based on their properties  
   
-3. Write invariants in order of priority  
+3. Write invariants in order of priority. Write your invariants in English, and then write them in Solidity.  
   
 4. Bound values to not waste fuzz runs  
 ```javascript
@@ -414,8 +414,8 @@ if(success) {
 ----------
   
 - Needs the `echidna_` prefix for every function identifier for Echidna to be able to realize its inputs. (PROPERTY TESTING)  
-- `echidna-test <test_file_name> --contract <test_contract_name>` for running Echidna.  
-- Declare a test function without the echidna prefix, can use `test_`prefix instead, write code for asserting a condition, and run echidna with the following input at the end: `--test-mode assertion`. This allows you to add parameters to the test as well. (ASSERTION TESTING) [11]  
+- `echidna <test_file_name> --contract <test_contract_name>` for running Echidna.  
+- Declare a test function without the echidna prefix, can use `test_`prefix instead(not necessary), write code for asserting a condition, and run echidna with the following input at the end: `--test-mode assertion`. This allows you to add parameters to the test as well. (ASSERTION TESTING) [11]  
 - Testing system-level invariants require initialization  
   - **Simple initialization**  
     - Deploy everything in the constructor  
