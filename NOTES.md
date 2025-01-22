@@ -214,6 +214,7 @@ fixes: Chainlink VRF, Commit Reveal Scheme
 --------  
   
 Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value of a datatype. Comes with foundry.  
+> Note: `int` max value is 2^255 whereas `uint` max value is 2^256-1. This may lead to an overflow in 0.7.x or lower and an exception in 0.8+.  
   
   
   

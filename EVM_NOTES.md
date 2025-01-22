@@ -164,6 +164,7 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
         - 2nd step : Instead of pushing the function sig manually like `0x12345678`, you can write the `__FUNC_SIG(function_name)` statement.  
     - Huff makes working with storage easier. Every storage slot is going to be 32 bytes.  
         - `FREE_STORAGE_POINTER()` essentially a counter that provides with a slot that is currently open to store data in.  
+    - Mappings algorithm in Huff is quite complicated so use a library called [**Huffmate**](https://github.com/huff-language/huffmate) to just import the data structure's code and use it.  
         
 ### Yul  
 - Inline assembly language, can be integrated into Solidity code.  
