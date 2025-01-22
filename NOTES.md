@@ -1,3 +1,44 @@
+# Smart Contract Security Notes  
+**Contents**  
+----------
+- [Smart Contract Security Notes](#smart-contract-security-notes)
+  - [**Contents**](#contents)
+  - [**Transactions - Function call**](#transactions---function-call)
+  - [**Transactions - Contract Deployment**](#transactions---contract-deployment)
+  - [**Rough approximation of audit duration**](#rough-approximation-of-audit-duration)
+  - [**Tools for auditing**](#tools-for-auditing)
+  - [**Note-taking methodology**](#note-taking-methodology)
+  - [**Findings**](#findings)
+  - [**Scoping process**](#scoping-process)
+  - [**Reading a private variable in a smart contract**](#reading-a-private-variable-in-a-smart-contract)
+  - [**Reentrancy Soln.**](#reentrancy-soln)
+  - [**Weak Randomness**](#weak-randomness)
+  - [**Integer overflow and underflow**](#integer-overflow-and-underflow)
+  - [**Self Destruct**](#self-destruct)
+  - [**Transaction Displacement Attacks**](#transaction-displacement-attacks)
+  - [**Invariants**](#invariants)
+    - [Two types of invariants:](#two-types-of-invariants)
+  - [**Weird ERC20s**](#weird-erc20s)
+  - [**Tincho Method**](#tincho-method)
+  - [**Invariant Testing**](#invariant-testing)
+  - [**Echidna**](#echidna)
+  - [**Decoding function calls in MetaMask**](#decoding-function-calls-in-metamask)
+  - [**Generating a random number (Chainlink VRF)**](#generating-a-random-number-chainlink-vrf)
+  - [**Chainlink Automation (Keepers)**](#chainlink-automation-keepers)
+  - [**Notes from Cergyk.eth**](#notes-from-cergyketh)
+    - [Threat Modelling](#threat-modelling)
+    - [Questions](#questions)
+    - [Introduce Complexity](#introduce-complexity)
+    - [Steelman Ideas](#steelman-ideas)
+  - [**How to NOT miss vulnerabilities**](#how-to-not-miss-vulnerabilities)
+  - [**Some additional bugs**](#some-additional-bugs)
+  - [**Useful Links**](#useful-links)
+  - [**References**](#references)
+  - [**Questions**](#questions-1)
+  
+  
+  
+  
 **Transactions - Function call**  
 ----------
 1. Nonce: tx count for the account  
@@ -119,6 +160,25 @@ Severity Guide - [4]
   
   
   
+**Scoping process**  
+----------
+Refer to minimal-onboarding in `[3]`  
+Check branch  
+```git
+git branch
+```  
+Check the commit hash of the scope and then type
+```git
+git checkout <COMMIT HASH HERE>  
+```  
+Switch to a new branch
+```git
+git switch -c NewProject-audit   
+```  
+  
+  
+  
+  
 **Reading a private variable in a smart contract**  
 ---------
 >1. Create a locally running chain  
@@ -149,25 +209,6 @@ Severity Guide - [4]
 >```
 >myPassword
 >```
-  
-  
-  
-  
-**Scoping process**  
-----------
-Refer to minimal-onboarding in `[3]`  
-Check branch  
-```git
-git branch
-```  
-Check the commit hash of the scope and then type
-```git
-git checkout <COMMIT HASH HERE>  
-```  
-Switch to a new branch
-```git
-git switch -c NewProject-audit   
-```  
   
   
   
@@ -212,7 +253,6 @@ fixes: Chainlink VRF, Commit Reveal Scheme
   
 **Integer overflow and underflow**  
 --------  
-  
 Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value of a datatype. Comes with foundry.  
 > Note: `int` max value is 2^255 whereas `uint` max value is 2^256-1. This may lead to an overflow in 0.7.x or lower and an exception in 0.8+.  
   
@@ -221,7 +261,6 @@ Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value o
   
 **Self Destruct**  
 ---------  
-  
 If a contract doesn't have a `receive` or `fallback` function, it reverts any attempts to send it any value but an attackerSelfDestruct contract can self-destruct and force the contract to accept the money. This will cause the `address(this).balance == totalBalance` check to fail.  
   
 Check this smart contract for an example - [7]  
@@ -229,9 +268,20 @@ Check this smart contract for an example - [7]
   
   
   
+**Transaction Displacement Attacks**  
+----------  
+  
+An attacker replaces a legitimate transaction with their own, to steal something of value intended for the legitimate transaction's sender.  
+Examples - 
+- Alice tries to register a domain name but Mallory does it first  
+- Alice tries to submit a bug but Mallory steals it and submits it first  
+- Alice tries to submit a bid in an auction and Mallory is copying it  
+  
+  
+  
+  
 **Invariants**  
 --------  
-    
 Invariants in ERC20 and ERC721 - [7]  
 **1. Stateless Fuzzing - Open**  
 >Stateless fuzzing (often known as just "fuzzing") is when you provide random data to a function to get some invariant or property to break.  
@@ -502,15 +552,6 @@ Check [12] for sample code using Chainlink Automation and natspec
   
   
   
-  
-**Transaction Displacement Attacks**  
-----------  
-  
-An attacker replaces a legitimate transaction with their own, to steal something of value intended for the legitimate transaction's sender.  
-Examples - 
-- Alice tries to register a domain name but Mallory does it first  
-- Alice tries to submit a bug but Mallory steals it and submits it first  
-- Alice tries to submit a bid in an auction and Mallory is copying it  
   
 **How to NOT miss vulnerabilities**  
 ----------  
