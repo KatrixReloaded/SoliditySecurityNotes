@@ -254,7 +254,7 @@ fixes: Chainlink VRF, Commit Reveal Scheme
 **Integer overflow and underflow**  
 --------  
 Use `chisel` in cmd and then `type(<DATATYPE>).max` to check the maximum value of a datatype. Comes with foundry.  
-> Note: `int` max value is 2^255 whereas `uint` max value is 2^256-1. This may lead to an overflow in 0.7.x or lower and an exception in 0.8+.  
+> Note: `int` max value is 2^255(as the first bit is reserved for the sign, aka, the sign bit) whereas `uint` max value is 2^256-1. This may lead to an overflow in 0.7.x or lower and an exception in 0.8+.  
   
   
   
@@ -482,6 +482,34 @@ if(success) {
   
 - Echidna has its own set of cheatcodes in `hevm`  
   - They are almost the same as the cheatcodes in Foundry  
+  
+- Structuring a function-level invariant  
+  - Pre-condition checks  
+    - Barriers of entry for the fuzzer. You can tell the fuzzer not to check these values if these conditions are not true  
+    - Eg: `require(usdc.balanceOf(msg.sender) > 0)`  
+  - Action  
+    - What you are testing  
+    - Eg: `usdc.transfer(to, amount)`  
+  - Post-condition checks  
+    - These are the "truths" you are testing  
+    - Test both happy and not-so-happy paths (try/catch)  
+    - Eg: `usdc.balanceOf(msg.sender) == initialBalance - amount`  
+  
+- Optimizing fuzzer performance  
+  - Pre-conditions  
+  - Arithmetic manipulation: Eg- `if(abs(x) == abs(y)) { y = x + 1; }`  
+  - Modular arithmetic  
+  
+- Resources for understanding precision loss  
+  - [A fixed point introduction by example](https://www.dsprelated.com/showarticle/139.php)  
+  - [Binary Integer Fixed-point Numbers](https://www.dsprelated.com/freebooks/mdft/Binary_Integer_Fixed_Point_Numbers.html)  
+  - [Fixed Point exponentiation](https://www.dsprelated.com/thread/8959/fixed-point-exponentiation)  
+  - [On the Implementation of Fixed-point Exponential Function for Machine Learning and Signal Processing Accelerators](http://arxiv.org/pdf/2112.02263)  
+  - [Fixed Point Math library for MSP Processors](https://www.ti.com/tool/MSP-IQMATHLIB)  
+  
+- External testing vs internal testing  
+  - What is internal testing?  
+  - 
   
   
   
