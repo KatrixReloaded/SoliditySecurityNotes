@@ -508,8 +508,18 @@ if(success) {
   - [Fixed Point Math library for MSP Processors](https://www.ti.com/tool/MSP-IQMATHLIB)  
   
 - External testing vs internal testing  
-  - What is internal testing?  
-  - 
+  - What is internal testing? Basically, when we inherit a particular contract that we need to fuzz and directly inherit all the instances.  
+  - In external testing, we make external calls to the contract that we need to fuzz but the msg.sender is not preserved.  
+  
+- Reading a coverage report  
+  - Each line in the coverage report is marked with:  
+    - * - means execution ended with a STOP, no errors  
+    - r - means execution ended with a REVERT  
+    - o - means out-of-gas error  
+    - e - means any other error, like zero division  
+    - or none of the above - this means that the particular line was not covered  
+  - In the `config.yaml` file always specify `corpusDir: corpus` in order to track coverage  
+- Adding try catch blocks to check both the happy and not-so-happy paths allow you to cover every scenario and also see if tests fail during an external call, otherwise the assert line may not be reached.  
   
   
   
