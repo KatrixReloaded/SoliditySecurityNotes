@@ -520,6 +520,24 @@ if(success) {
     - or none of the above - this means that the particular line was not covered  
   - In the `config.yaml` file always specify `corpusDir: corpus` in order to track coverage  
 - Adding try catch blocks to check both the happy and not-so-happy paths allow you to cover every scenario and also see if tests fail during an external call, otherwise the assert line may not be reached.  
+- AMM Fuzzing  
+  - Swap Invariants:  
+    - Swapping 0 tokens should net you 0 tokens out  
+    - Swapping increases and decreases token balances accordingly  
+    - Swapping x of token A for y of token B and back should get you x of token A  
+    - Pool invariant should remain constant during swaps  
+  - Core:  
+    - contains the core logic of the AMM and the swaps  
+  - Periphery:  
+    - Set of contracts that interact with core  
+    - Provide safety checks and helper functions  
+    - Library: mainly contains helper functions  
+      - Sort tokens, calculate amount in/out  
+      - Can calculate amounts in/out for chained swaps  
+    - Router: "routes" trades  
+      - Provides safety checks for minimal core contracts  
+      - In charge of transferring tokens properly  
+      - If you've done a swap/provided liquidity before, you went through the router  
   
   
   
@@ -638,6 +656,7 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 - In upgradeable contracts, the immutable variables are not migrated to the upgraded contract since they are not in storage.  
 - MSTORE does not update the free memory pointer. If you have a normal Solidity code after an assembly block that uses MSTORE, most likely, the Solidity code is overwriting whatever was stored using MSTORE.  
 - Be wary of precision loss and division by 0 whenever division is used.  
+> #### **Note:** If a function executes a transfer, and then reverts afterwards due to some other condition or scenario, the entire state of the contract reverts. Meaning that the transfer is also reverted.  
   
   
   
