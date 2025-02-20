@@ -32,6 +32,7 @@
     - [Steelman Ideas](#steelman-ideas)
   - [**How to NOT miss vulnerabilities**](#how-to-not-miss-vulnerabilities)
   - [**Some additional bugs**](#some-additional-bugs)
+  - [**Random Notes**](#random-notes)
   - [**Useful Links**](#useful-links)
   - [**References**](#references)
   - [**Questions**](#questions-1)
@@ -657,6 +658,27 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 - MSTORE does not update the free memory pointer. If you have a normal Solidity code after an assembly block that uses MSTORE, most likely, the Solidity code is overwriting whatever was stored using MSTORE.  
 - Be wary of precision loss and division by 0 whenever division is used.  
 > #### **Note:** If a function executes a transfer, and then reverts afterwards due to some other condition or scenario, the entire state of the contract reverts. Meaning that the transfer is also reverted.  
+  
+  
+  
+  
+**Random Notes**  
+----------  
+- **TWAP**: Time-Weighted Average Price  
+  -  It is a price calculation method used in Uniswap(added in v2, improved in v3) that averages prices over a period of time.  
+- **MAD-HTLC**: Mutual-Assured-Destruction Hashed Time-Locked Contract  
+  - Crazy shit, you make both parties deposit the swap amount AND a collateral. If any malicious activity is detected from either parties, the miner penalizes both parties by taking both of their's deposits(including collateral).  
+  - Miner has a huge incentive here, not recommended since miner can do a Reverse Bribery Attack(RBA).  
+- **RBA**: Reverse Bribery Attack  
+  - Success-Independent RBA: Miner is incentivized to bribe the creator of an order in HTLC with an amount greater than or equal to the user's deposited amount in exchange for the secret pre-image.  
+  - Success-Dependent RBA: Miner reverse-bribes Bob in exchange for a confirmed on-chain tx confiscating the assets using the pre-image.  
+  - Hybrid Delay RBA: Miner reverse-bribes Bob in exchange for a confirmed on-chain tx confiscating the deposits AND the collateral using the pre-image after the timeout.  
+- **Bitcoin Core Transaction-Relay Vulnerability**:  
+  - Basically, it can disrupt the transaction process on the Bitcoin network. Specifically, it allows for transaction-relay jamming, an off-chain protocol attack.  
+  - It can flood the network with transaction traffic that can alter the outcome of an HTLC, preventing the propagation of specific Lightning channel transactions.  
+  - By initiating a flood of transaction traffic, an attacker can effectively jam transaction relays. This jamming disrupts the normal transaction processing flow, leading to potential changes in contract outcomes, such as the HTLCs.  
+- **He-HTLC**: Helium HTLC  
+  - It's called that because it is light-weight and inert to all HTLC attacks.  
   
   
   
