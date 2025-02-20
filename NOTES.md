@@ -32,6 +32,7 @@
     - [Steelman Ideas](#steelman-ideas)
   - [**How to NOT miss vulnerabilities**](#how-to-not-miss-vulnerabilities)
   - [**Some additional bugs**](#some-additional-bugs)
+  - [**HTLC**](#htlc)
   - [**Random Notes**](#random-notes)
   - [**Useful Links**](#useful-links)
   - [**References**](#references)
@@ -662,10 +663,8 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   
   
   
-**Random Notes**  
-----------  
-- **TWAP**: Time-Weighted Average Price  
-  -  It is a price calculation method used in Uniswap(added in v2, improved in v3) that averages prices over a period of time.  
+**HTLC**  
+----------
 - **MAD-HTLC**: Mutual-Assured-Destruction Hashed Time-Locked Contract  
   - Crazy shit, you make both parties deposit the swap amount AND a collateral. If any malicious activity is detected from either parties, the miner penalizes both parties by taking both of their's deposits(including collateral).  
   - Miner has a huge incentive here, not recommended since miner can do a Reverse Bribery Attack(RBA).  
@@ -679,6 +678,14 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - By initiating a flood of transaction traffic, an attacker can effectively jam transaction relays. This jamming disrupts the normal transaction processing flow, leading to potential changes in contract outcomes, such as the HTLCs.  
 - **He-HTLC**: Helium HTLC  
   - It's called that because it is light-weight and inert to all HTLC attacks.  
+  
+  
+  
+  
+**Random Notes**  
+----------  
+- **TWAP**: Time-Weighted Average Price  
+  -  It is a price calculation method used in Uniswap(added in v2, improved in v3) that averages prices over a period of time.  
   
   
   
