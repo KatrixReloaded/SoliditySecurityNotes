@@ -714,6 +714,11 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - `solc --model-checker-engine chc --model-checker-targets overflow XYZ.sol` would check the contract XYZ for any overflows  
   - Similarly, if I changed the `overflow` to an `assert`, it would check if any assertions are being violated  
 - Manticore and Certora are tools for Symbolic Execution  
+- **Halmos**:  
+  - Setup is a lot similar to fuzz tests  
+  - Can use [Halmos cheatcodes](https://github.com/a16z/halmos-cheatcodes) to set up symbolic arguments  
+  - You can also call the constructor with symbolic arguments  
+  - Need to understand all cheatcodes, go through all examples on halmos/examples dir  
   
   
   
