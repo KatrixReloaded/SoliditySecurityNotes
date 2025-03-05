@@ -177,3 +177,4 @@ Huff and Yul are low-level languages for writing smart contracts. They can be us
     - `--optimize-runs 2000`, 2000 here is just used as an example, any value can be used here depending on your specifications; this step can be skipped too.  
     - `--bin` is to get the binary output (bytecode)  
     - Add ` | grep 60` to just get the binary output line  
+- `not(x)` basically inverts the value. For example, `not(0)` would be 0xffffff...fff (inv(0x000000...000))  

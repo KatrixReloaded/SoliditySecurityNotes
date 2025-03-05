@@ -53,6 +53,7 @@ Run `forge build --zksync` to compile with zkSync
   - `--fork-url` for forking any network  
   - `--gas-report` for gas report  
   - `--debug` for inline opcode debugger  
+    - Super helpful for looking at the stack and/or memory  
   
 - ### `forge snapshot`
   - Creates a file (`.gas-snapshot`) with the gas costs of the test  
