@@ -612,6 +612,29 @@ Check [12] for sample code using Chainlink Automation and natspec
   
   
   
+**Notes from MiloTruck**  
+----------  
+- **First Phase: Preparation**  
+  - Before the audit starts, prepare by doing recon. Look for docs, don't go in blind.  
+  - Get an idea of what you'll be auditing and catch up on missing knowledge. For example, if there's an AMM, read up on topics related to it, like Uniswap V3 Math, etc.  
+  - Look through Solodit for audits of similar protocols  
+  - Get an idea of what bugs to look for:  
+    - Bridges/cross-chain: Gas  
+    - Lending: Loan manipulation  
+- **Second Phase: Understanding**  
+  - After the audit starts  
+  - Answer the "What"s:  
+    - What components exist in the system?  
+    - What are the different actors and roles?  
+    - What areas have the most complexity?  
+  - Avoid the "How"s:  
+    - Explanation of logic  
+    - Specific details of the code  
+
+  
+  
+  
+  
 **How to NOT miss vulnerabilities**  
 ----------  
   
@@ -715,6 +738,8 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 > 7. [**Dedaub**](app.dedaub.com)  is an EVM bytecode decompiler.  
 > 8. [**Heimdall-rs**](https://github.com/Jon-Becker/heimdall-rs) is an EVM toolkit that can be used for EVM bytecode disassembly/decompiling.  
 > 9. [**The Art of Auditing**](https://web3-sec.gitbook.io/art-of-auditing) Whenever you feel stuck or just need some motivation.  
+> 10. [**sc-exploits-minimized**](https://github.com/Cyfrin/sc-exploits-minimized) Check out all the exploits to have a better understanding.  
+> 11. [**ToB Secure Contracts**](https://secure-contracts.com) Guides for all the tools I need to use and better understanding of invariants.  
   
   
   
