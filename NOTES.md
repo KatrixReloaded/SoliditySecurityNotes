@@ -33,6 +33,7 @@
   - [**How to NOT miss vulnerabilities**](#how-to-not-miss-vulnerabilities)
   - [**Some additional bugs**](#some-additional-bugs)
   - [**HTLC**](#htlc)
+  - [**Formal Verification**](#formal-verification)
   - [**Random Notes**](#random-notes)
   - [**Useful Links**](#useful-links)
   - [**References**](#references)
@@ -678,6 +679,18 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - By initiating a flood of transaction traffic, an attacker can effectively jam transaction relays. This jamming disrupts the normal transaction processing flow, leading to potential changes in contract outcomes, such as the HTLCs.  
 - **He-HTLC**: Helium HTLC  
   - It's called that because it is light-weight and inert to all HTLC attacks.  
+  
+  
+  
+  
+**Formal Verification**  
+----------  
+- Breaking a property using mathematical proofs  
+- Convert code into mathematical expressions, dump the math into an SMT Solver like Z3  
+- Solidity compiler can act as a symbolic execution tool  
+  - `solc --model-checker-engine chc --model-checker-targets overflow XYZ.sol` would check the contract XYZ for any overflows  
+  - Similarly, if I changed the `overflow` to an `assert`, it would check if any assertions are being violated  
+- Manticore and Certora are tools for Symbolic Execution  
   
   
   
