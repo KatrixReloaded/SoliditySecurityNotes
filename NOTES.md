@@ -612,7 +612,7 @@ Check [12] for sample code using Chainlink Automation and natspec
   
   
   
-**Notes from MiloTruck**  
+**Notes from Milotruck**  
 ----------  
 - **First Phase: Preparation**  
   - Before the audit starts, prepare by doing recon. Look for docs, don't go in blind.  
@@ -630,6 +630,9 @@ Check [12] for sample code using Chainlink Automation and natspec
   - Avoid the "How"s:  
     - Explanation of logic  
     - Specific details of the code  
+  - Approaching the codebase  
+    - Following the flow  
+    - 
 
   
   
@@ -714,11 +717,22 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - `solc --model-checker-engine chc --model-checker-targets overflow XYZ.sol` would check the contract XYZ for any overflows  
   - Similarly, if I changed the `overflow` to an `assert`, it would check if any assertions are being violated  
 - Manticore and Certora are tools for Symbolic Execution  
+  
 - **Halmos**:  
   - Setup is a lot similar to fuzz tests  
-  - Can use [Halmos cheatcodes](https://github.com/a16z/halmos-cheatcodes) to set up symbolic arguments  
+  - Can use Halmos cheatcodes to set up symbolic arguments -> [13]  
   - You can also call the constructor with symbolic arguments  
   - Need to understand all cheatcodes, go through all examples on halmos/examples dir  
+  - Doesn't use gas, can't be used for checking gas related data/issues  
+  - Can't be used for bytecode-level stuff either, since it transpiles to smtlib through python(?)  
+  - Kontrol is a more complete version of Halmos  
+  
+  - **Halmos commands**  
+    - `halmos` is the command to run the FV tests  
+    - `--function <funcName>` to specify the test  
+    - `invariant-depth <int>` to specify how many sequenced function calls should be checked in each run  
+    - `--loop <int>` to specify the number of loop runs present in the test  
+    - `--solver-timeout-assertion <int>` specify timeout in assertion, 0 means no timeout, default is 1000 ms  
   
   
   
@@ -763,6 +777,7 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 [10] secure-contracts.com  
 [11] crytic / building-secure-contracts / program-analysis / echidna / exercises / exercise2  
 [12] KatrixReloaded / FoundryLottery  
+[13] a16z / halmos-cheatcodes
   
   
   
