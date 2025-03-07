@@ -769,6 +769,9 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
       - For example, if you have an invariant that can be set up in a simple boolean expression like `totalSupply() != 0;`, that's all you need to write in the `invariant`  
       - To add prechecks, create a block, in which we'll add the block `preserved {...}` which will contain the require statement  
     - **Note:** Read up more on path explosion problems and Modular Verification  
+    - There might be some false-positives with Certora  
+      - Add the generated result to a unit test to confirm whether the edge case is valid or not  
+      - If not, add a require statement specifying to Certora to skip the specific values  
   
   
   
