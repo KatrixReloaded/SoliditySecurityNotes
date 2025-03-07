@@ -734,6 +734,28 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - `--loop <int>` to specify the number of loop runs present in the test  
     - `--solver-timeout-assertion <int>` specify timeout in assertion, 0 means no timeout, default is 1000 ms  
   
+- **Certora**  
+  - Docs SUPER important -> [14]
+  - To set it up, in the root dir of the codebase, create dir `certora` which will have two sub-dirs, `conf` and `spec`  
+  - `conf` will have the configurations required for Certora to run, can be specified in the terminal but would be too long so ideal to have this dir  
+  - In the conf dir, create a file `example.conf`. This file will have a `"files": [...]` tag which will specify the target files, and `"verify":` will specify whatever we want to verify, basically the contract name, then a colon and the spec file location  
+  - **Certora spec syntax**  
+    - We can set up `rules` or `invariants` (along with other stuff, check docs, but these two are the most important parts)  
+      - A `rule` specifies certain conditions after which an invariant should hold. Eg: Call x, y, and z then a should hold  
+      - An `invariant` means that the invariant should hold at any state of the contract  
+    - In the `methods` block, we specify the functions that will be used in the rule or invariant. It is basically like an interface, similar syntax to Solidity  
+      - The functions declared in the `methods` block have a keyword attached at the end `envfree` which basically tells Certora that there are no environment variables involved like msg.sender, msg.value, etc.  
+    - Also, seems like adding comments in the middle of the methods block throws an error(?)  
+    - To add checks for function reverts, Certora has a keyword `@withrevert`. Eg: `foobar@withrevert(params)`  
+    - There is a keyword `lastReverted` which is updated every time a Solidity function is invoked. If it reverts, lastReverted = true, else false  
+    - In the URL generated, click on the rule that failed, check the call trace  
+    - **Note:** If Certora is unsure if a variable can be changed, it will assume that the variable can be changed  
+    - `HAVOC`ing: when Certora "randomizes" a variable in order to find a counter example  
+    - Instead of `vm.assume(...)`, in Certora, we can just `require` the pre-conditions  
+    - We refer to the contract being verified by using the keyword `currentContract`  
+    - If a function is not `envfree`, you need to set up a env type variable `env e;` and then pass it as the first argument in the function call  
+    
+  
   
   
   
@@ -777,7 +799,8 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 [10] secure-contracts.com  
 [11] crytic / building-secure-contracts / program-analysis / echidna / exercises / exercise2  
 [12] KatrixReloaded / FoundryLottery  
-[13] a16z / halmos-cheatcodes
+[13] a16z / halmos-cheatcodes  
+[14] https://docs.certora.com/en/latest/docs/cvl/index.html -> Certora Docs  
   
   
   
