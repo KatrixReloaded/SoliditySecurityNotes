@@ -760,6 +760,11 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - Instead of `vm.assume(...)`, in Certora, we can just `require` the pre-conditions  
     - We refer to the contract being verified by using the keyword `currentContract`  
     - If a function is not `envfree`, you need to set up a env type variable `env e;` and then pass it as the first argument in the function call  
+    - If an internal function needs to be tested, create a harness contract and wrap the function in an external function  
+    - `definition`s server as type-checked macros in specifications, you can basically create one to use instead of constants, go through docs  
+    - Use require instead of if conditions to set up pre-conditions  
+    - Instead of `type(uint256).max`, it is `max_uint256` in Certora, which is a `mathint` type value  
+    - `mathint` is a datatype present in Certora which can basically store an integer of any size, basically, never underflows or overflows  
     
   
   
