@@ -765,7 +765,10 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - Use require instead of if conditions to set up pre-conditions  
     - Instead of `type(uint256).max`, it is `max_uint256` in Certora, which is a `mathint` type value  
     - `mathint` is a datatype present in Certora which can basically store an integer of any size, basically, never underflows or overflows  
-    
+    - For writing an `invariant`, all you need to do is include a boolean expression  
+      - For example, if you have an invariant that can be set up in a simple boolean expression like `totalSupply() != 0;`, that's all you need to write in the `invariant`  
+      - To add prechecks, create a block, in which we'll add the block `preserved {...}` which will contain the require statement  
+    - **Note:** Read up more on path explosion problems and Modular Verification  
   
   
   
