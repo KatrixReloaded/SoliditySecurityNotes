@@ -739,6 +739,12 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - To set it up, in the root dir of the codebase, create dir `certora` which will have two sub-dirs, `conf` and `spec`  
   - `conf` will have the configurations required for Certora to run, can be specified in the terminal but would be too long so ideal to have this dir  
   - In the conf dir, create a file `example.conf`. This file will have a `"files": [...]` tag which will specify the target files, and `"verify":` will specify whatever we want to verify, basically the contract name, then a colon and the spec file location  
+  - In the conf file, there are a few more things to add:  
+    - `optimistic_loop`- Basically, there's a loop in the function and you trust it  
+    - `rule_sanity`- Certora will skip stupid rules  
+    - `msg`- A custom message for the cli  
+    - `wait_for_results`- Wait for results  
+    - Check the docs to dig deeper into these configs  
   - **Certora spec syntax**  
     - We can set up `rules` or `invariants` (along with other stuff, check docs, but these two are the most important parts)  
       - A `rule` specifies certain conditions after which an invariant should hold. Eg: Call x, y, and z then a should hold  
