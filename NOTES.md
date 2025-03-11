@@ -718,7 +718,7 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - Similarly, if I changed the `overflow` to an `assert`, it would check if any assertions are being violated  
 - Manticore and Certora are tools for Symbolic Execution  
   
-### **Halmos**:  
+### **Halmos**  
 - Setup is a lot similar to fuzz tests  
 - Can use Halmos cheatcodes to set up symbolic arguments -> [13]  
 - You can also call the constructor with symbolic arguments  
@@ -755,7 +755,7 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - To add checks for function reverts, Certora has a keyword `@withrevert`. Eg: `foobar@withrevert(params)`  
   - There is a keyword `lastReverted` which is updated every time a Solidity function is invoked. If it reverts, lastReverted = true, else false  
   - In the URL generated, click on the rule that failed, check the call trace  
-  - **Note:** If Certora is unsure if a variable can be changed, it will assume that the variable can be changed  
+  > **Note:** If Certora is unsure if a variable can be changed, it will assume that the variable can be changed  
   - `HAVOC`ing: when Certora "randomizes" a variable in order to find a counter example  
   - Instead of `vm.assume(...)`, in Certora, we can just `require` the pre-conditions  
   - We refer to the contract being verified by using the keyword `currentContract`  
@@ -772,6 +772,29 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - There might be some false-positives with Certora  
     - Add the generated result to a unit test to confirm whether the edge case is valid or not  
     - If not, add a require statement specifying to Certora to skip the specific values  
+  - Parametric rules can be set up in Certora spec.
+    - In a rule, define the following:  
+    ```javascript
+    rule xyz {
+        method f;
+        env e;
+        calldataarg arg;
+        f(e, arg);
+        ... // any conditions
+    }
+    ```  
+    - This rule will call any method in the contract with any env and any calldata arguments  
+  - In Certora, `ghost` variables can be set up which can be used across `rule`s and `hook`s  
+    - eg: `ghost uint256 sum;`  
+    - This `ghost` variable is not initialized with 0, we can specify that like this: `ghost uint sum { init_state axiom sum == 0; }`  
+      - Here, the `init_state` is a keyword to define an initial state of the variable  
+      - The `axiom` keyword is added to assert that this initial state is always there  
+    - **Note:** If a function is externally called and not recognized by Certora, it will also `DEFAULT HAVOC` the non-persistent ghost variables  
+    - To make sure that the ghost variable isn't havoced, add the `persistent` keyword before it  
+    - A `hook` in Certora is used to attach CVL code to certain low-level operations, such as loads and stores to specific storage variables  
+      - eg: `hook Sstore totalSupply uint256 ts {...}`  
+      - The above LoC basically says, "For any change made to the storage variable totalSupply, ts, do something"  
+      - Hooks can be used for almost every EVM opcode, look at docs for syntax  
   
   
   
