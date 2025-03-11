@@ -795,6 +795,23 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
       - eg: `hook Sstore totalSupply uint256 ts {...}`  
       - The above LoC basically says, "For any change made to the storage variable totalSupply, ts, do something"  
       - Hooks can be used for almost every EVM opcode, look at docs for syntax  
+    - In Certora, there are two types of method declarations:  
+      - Non-summary declarations (like the ones we have been using till now)  
+      - Summary declarations (where we can ask certora to do something else with it than what it is intended to do)  
+        - eg: `function totalSupply() external returns uint256 => ALWAYS(1);` This will always return 1  
+    - Wildcard entries are also a type of method declaration where we can say that this function applies to any contract having this function selector  
+      - eg: `function _.totalSupply() external returns uint256;`  
+      - We can also add a summary to such declarations  
+        - eg: `function _.totalSupply() external returns uint256 => ALWAYS(1);`  
+    - Catch-all entries don't really make sense to me tbh  
+      - eg: `function currentContract._ external returns uint256 => ALWAYS(1);`  
+    - GOTO docs to understand method blocks better  
+    - The `DISPATCHER` summary declaration basically indicates to Certora to whether look for the certain function's declaration in the given codebase and use that or to not do that and assume the worst  
+      - `DISPATCHER(true)` indicates to look for a declaration of the function in the given contracts  
+      - And, `DISPATCHER(false)` indicates the opposite  
+    - `prover_args` is a flag for the config file that allows you to provide fine-grained tuning options to the Prover.  
+      - One of these is `-optimisticFallback true` which indicates that if there are any calls to functions that are out of scope, they cannot arbitrarily change the state of our contract. Setting it to false would lead to default havocs  
+    - Read up on `filtered` blocks in rules  
   
   
   
