@@ -718,60 +718,60 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - Similarly, if I changed the `overflow` to an `assert`, it would check if any assertions are being violated  
 - Manticore and Certora are tools for Symbolic Execution  
   
-- **Halmos**:  
-  - Setup is a lot similar to fuzz tests  
-  - Can use Halmos cheatcodes to set up symbolic arguments -> [13]  
-  - You can also call the constructor with symbolic arguments  
-  - Need to understand all cheatcodes, go through all examples on halmos/examples dir  
-  - Doesn't use gas, can't be used for checking gas related data/issues  
-  - Can't be used for bytecode-level stuff either, since it transpiles to smtlib through python(?)  
-  - Kontrol is a more complete version of Halmos  
+### **Halmos**:  
+- Setup is a lot similar to fuzz tests  
+- Can use Halmos cheatcodes to set up symbolic arguments -> [13]  
+- You can also call the constructor with symbolic arguments  
+- Need to understand all cheatcodes, go through all examples on halmos/examples dir  
+- Doesn't use gas, can't be used for checking gas related data/issues  
+- Can't be used for bytecode-level stuff either, since it transpiles to smtlib through python(?)  
+- Kontrol is a more complete version of Halmos  
   
-  - **Halmos commands**  
-    - `halmos` is the command to run the FV tests  
-    - `--function <funcName>` to specify the test  
-    - `invariant-depth <int>` to specify how many sequenced function calls should be checked in each run  
-    - `--loop <int>` to specify the number of loop runs present in the test  
-    - `--solver-timeout-assertion <int>` specify timeout in assertion, 0 means no timeout, default is 1000 ms  
+- #### **Halmos commands**  
+  - `halmos` is the command to run the FV tests  
+  - `--function <funcName>` to specify the test  
+  - `invariant-depth <int>` to specify how many sequenced function calls should be checked in each run  
+  - `--loop <int>` to specify the number of loop runs present in the test  
+  - `--solver-timeout-assertion <int>` specify timeout in assertion, 0 means no timeout, default is 1000 ms  
   
-- **Certora**  
-  - Docs SUPER important -> [14]
-  - To set it up, in the root dir of the codebase, create dir `certora` which will have two sub-dirs, `conf` and `spec`  
-  - `conf` will have the configurations required for Certora to run, can be specified in the terminal but would be too long so ideal to have this dir  
-  - In the conf dir, create a file `example.conf`. This file will have a `"files": [...]` tag which will specify the target files, and `"verify":` will specify whatever we want to verify, basically the contract name, then a colon and the spec file location  
-  - In the conf file, there are a few more things to add:  
-    - `optimistic_loop`- Basically, there's a loop in the function and you trust it  
-    - `rule_sanity`- Certora will skip stupid rules  
-    - `msg`- A custom message for the cli  
-    - `wait_for_results`- Wait for results  
-    - Check the docs to dig deeper into these configs  
-  - **Certora spec syntax**  
-    - We can set up `rules` or `invariants` (along with other stuff, check docs, but these two are the most important parts)  
-      - A `rule` specifies certain conditions after which an invariant should hold. Eg: Call x, y, and z then a should hold  
-      - An `invariant` means that the invariant should hold at any state of the contract  
-    - In the `methods` block, we specify the functions that will be used in the rule or invariant. It is basically like an interface, similar syntax to Solidity  
-      - The functions declared in the `methods` block have a keyword attached at the end `envfree` which basically tells Certora that there are no environment variables involved like msg.sender, msg.value, etc.  
-    - Also, seems like adding comments in the middle of the methods block throws an error(?)  
-    - To add checks for function reverts, Certora has a keyword `@withrevert`. Eg: `foobar@withrevert(params)`  
-    - There is a keyword `lastReverted` which is updated every time a Solidity function is invoked. If it reverts, lastReverted = true, else false  
-    - In the URL generated, click on the rule that failed, check the call trace  
-    - **Note:** If Certora is unsure if a variable can be changed, it will assume that the variable can be changed  
-    - `HAVOC`ing: when Certora "randomizes" a variable in order to find a counter example  
-    - Instead of `vm.assume(...)`, in Certora, we can just `require` the pre-conditions  
-    - We refer to the contract being verified by using the keyword `currentContract`  
-    - If a function is not `envfree`, you need to set up a env type variable `env e;` and then pass it as the first argument in the function call  
-    - If an internal function needs to be tested, create a harness contract and wrap the function in an external function  
-    - `definition`s server as type-checked macros in specifications, you can basically create one to use instead of constants, go through docs  
-    - Use require instead of if conditions to set up pre-conditions  
-    - Instead of `type(uint256).max`, it is `max_uint256` in Certora, which is a `mathint` type value  
-    - `mathint` is a datatype present in Certora which can basically store an integer of any size, basically, never underflows or overflows  
-    - For writing an `invariant`, all you need to do is include a boolean expression  
-      - For example, if you have an invariant that can be set up in a simple boolean expression like `totalSupply() != 0;`, that's all you need to write in the `invariant`  
-      - To add prechecks, create a block, in which we'll add the block `preserved {...}` which will contain the require statement  
-    - **Note:** Read up more on path explosion problems and Modular Verification  
-    - There might be some false-positives with Certora  
-      - Add the generated result to a unit test to confirm whether the edge case is valid or not  
-      - If not, add a require statement specifying to Certora to skip the specific values  
+### **Certora**  
+- Docs SUPER important -> [14]
+- To set it up, in the root dir of the codebase, create dir `certora` which will have two sub-dirs, `conf` and `spec`  
+- `conf` will have the configurations required for Certora to run, can be specified in the terminal but would be too long so ideal to have this dir  
+- In the conf dir, create a file `example.conf`. This file will have a `"files": [...]` tag which will specify the target files, and `"verify":` will specify whatever we want to verify, basically the contract name, then a colon and the spec file location  
+- In the conf file, there are a few more things to add:  
+  - `optimistic_loop`- Basically, there's a loop in the function and you trust it  
+  - `rule_sanity`- Certora will skip stupid rules  
+  - `msg`- A custom message for the cli  
+  - `wait_for_results`- Wait for results  
+  - Check the docs to dig deeper into these configs  
+- #### **Certora spec syntax**  
+  - We can set up `rules` or `invariants` (along with other stuff, check docs, but these two are the most important parts)  
+    - A `rule` specifies certain conditions after which an invariant should hold. Eg: Call x, y, and z then a should hold  
+    - An `invariant` means that the invariant should hold at any state of the contract  
+  - In the `methods` block, we specify the functions that will be used in the rule or invariant. It is basically like an interface, similar syntax to Solidity  
+    - The functions declared in the `methods` block have a keyword attached at the end `envfree` which basically tells Certora that there are no environment variables involved like msg.sender, msg.value, etc.  
+  - Also, seems like adding comments in the middle of the methods block throws an error(?)  
+  - To add checks for function reverts, Certora has a keyword `@withrevert`. Eg: `foobar@withrevert(params)`  
+  - There is a keyword `lastReverted` which is updated every time a Solidity function is invoked. If it reverts, lastReverted = true, else false  
+  - In the URL generated, click on the rule that failed, check the call trace  
+  - **Note:** If Certora is unsure if a variable can be changed, it will assume that the variable can be changed  
+  - `HAVOC`ing: when Certora "randomizes" a variable in order to find a counter example  
+  - Instead of `vm.assume(...)`, in Certora, we can just `require` the pre-conditions  
+  - We refer to the contract being verified by using the keyword `currentContract`  
+  - If a function is not `envfree`, you need to set up a env type variable `env e;` and then pass it as the first argument in the function call  
+  - If an internal function needs to be tested, create a harness contract and wrap the function in an external function  
+  - `definition`s server as type-checked macros in specifications, you can basically create one to use instead of constants, go through docs  
+  - Use require instead of if conditions to set up pre-conditions  
+  - Instead of `type(uint256).max`, it is `max_uint256` in Certora, which is a `mathint` type value  
+  - `mathint` is a datatype present in Certora which can basically store an integer of any size, basically, never underflows or overflows  
+  - For writing an `invariant`, all you need to do is include a boolean expression  
+    - For example, if you have an invariant that can be set up in a simple boolean expression like `totalSupply() != 0;`, that's all you need to write in the `invariant`  
+    - To add prechecks, create a block, in which we'll add the block `preserved {...}` which will contain the require statement  
+  - **Note:** Read up more on path explosion problems and Modular Verification  
+  - There might be some false-positives with Certora  
+    - Add the generated result to a unit test to confirm whether the edge case is valid or not  
+    - If not, add a require statement specifying to Certora to skip the specific values  
   
   
   
