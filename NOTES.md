@@ -793,14 +793,15 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
       - The `axiom` keyword is added to assert that this initial state is always there  
     > **Note:** If a function is externally called and not recognized by Certora, it will also `DEFAULT HAVOC` the non-persistent ghost variables  
     - To make sure that the ghost variable isn't havoced, add the `persistent` keyword before it  
-    - A `hook` in Certora is used to attach CVL code to certain low-level operations, such as loads and stores to specific storage variables  
-      - eg: `hook Sstore totalSupply uint256 ts {...}`  
-      - The above LoC basically says, "For any change made to the storage variable totalSupply, ts, do something"  
-      - Hooks can be used for almost every EVM opcode, look at docs for syntax  
-    - In Certora, there are two types of method declarations:  
-      - Non-summary declarations (like the ones we have been using till now)  
-      - Summary declarations (where we can ask certora to do something else with it than what it is intended to do)  
-        - eg: `function totalSupply() external returns uint256 => ALWAYS(1);` This will always return 1  
+    - You can also declare ghost mappings!  
+  - A `hook` in Certora is used to attach CVL code to certain low-level operations, such as loads and stores to specific storage variables  
+    - eg: `hook Sstore totalSupply uint256 ts {...}`  
+    - The above LoC basically says, "For any change made to the storage variable totalSupply, ts, do something"  
+    - Hooks can be used for almost every EVM opcode, look at docs for syntax  
+  - In Certora, there are two types of method declarations:  
+    - Non-summary declarations (like the ones we have been using till now)  
+    - Summary declarations (where we can ask certora to do something else with it than what it is intended to do)  
+      - eg: `function totalSupply() external returns uint256 => ALWAYS(1);` This will always return 1  
     - Wildcard entries are also a type of method declaration where we can say that this function applies to any contract having this function selector  
       - eg: `function _.totalSupply() external returns uint256;`  
       - We can also add a summary to such declarations  
@@ -813,9 +814,13 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
       - And, `DISPATCHER(false)` indicates the opposite  
     - `prover_args` is a flag for the config file that allows you to provide fine-grained tuning options to the Prover.  
       - One of these is `-optimisticFallback true` which indicates that if there are any calls to functions that are out of scope, they cannot arbitrarily change the state of our contract. Setting it to false would lead to default havocs  
-    - Read up on `filtered` blocks in rules  
-    - Can assert logical expressions like `assert balanceBefore > balanceAfter => e.msg.sender == owner`  
-      - Here, we say that assert if balanceBefore is greater than balanceAfter, then msg.sender was the owner  
+  - Read up on `filtered` blocks in rules  
+  - Can assert logical expressions like `assert balanceBefore > balanceAfter => e.msg.sender == owner`  
+    - Here, we say that assert if balanceBefore is greater than balanceAfter, then msg.sender was the owner  
+  - We can store a snapshot of storage using `storage`  
+  - `lastStorage` gives us the current state of storage  
+    - eg: `storage init = lastStorage;`  
+    - `at init` would mean to rewind back to the init state of storage and then execute the command  
   
   
   
