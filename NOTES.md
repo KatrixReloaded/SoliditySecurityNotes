@@ -34,6 +34,8 @@
   - [**Some additional bugs**](#some-additional-bugs)
   - [**HTLC**](#htlc)
   - [**Formal Verification**](#formal-verification)
+    - [**Halmos**](#halmos)
+    - [**Certora**](#certora)
   - [**Random Notes**](#random-notes)
   - [**Useful Links**](#useful-links)
   - [**References**](#references)
@@ -774,22 +776,22 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - If not, add a require statement specifying to Certora to skip the specific values  
   - Parametric rules can be set up in Certora spec.
     - In a rule, define the following:  
-    ```javascript
-    rule xyz {
-        method f;
-        env e;
-        calldataarg arg;
-        f(e, arg);
-        ... // any conditions
-    }
-    ```  
+      ```javascript
+      rule xyz {
+          method f;
+          env e;
+          calldataarg arg;
+          f(e, arg);
+          ... // any conditions
+      }
+      ```  
     - This rule will call any method in the contract with any env and any calldata arguments  
   - In Certora, `ghost` variables can be set up which can be used across `rule`s and `hook`s  
     - eg: `ghost uint256 sum;`  
     - This `ghost` variable is not initialized with 0, we can specify that like this: `ghost uint sum { init_state axiom sum == 0; }`  
       - Here, the `init_state` is a keyword to define an initial state of the variable  
       - The `axiom` keyword is added to assert that this initial state is always there  
-    - **Note:** If a function is externally called and not recognized by Certora, it will also `DEFAULT HAVOC` the non-persistent ghost variables  
+    > **Note:** If a function is externally called and not recognized by Certora, it will also `DEFAULT HAVOC` the non-persistent ghost variables  
     - To make sure that the ghost variable isn't havoced, add the `persistent` keyword before it  
     - A `hook` in Certora is used to attach CVL code to certain low-level operations, such as loads and stores to specific storage variables  
       - eg: `hook Sstore totalSupply uint256 ts {...}`  
@@ -812,6 +814,8 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - `prover_args` is a flag for the config file that allows you to provide fine-grained tuning options to the Prover.  
       - One of these is `-optimisticFallback true` which indicates that if there are any calls to functions that are out of scope, they cannot arbitrarily change the state of our contract. Setting it to false would lead to default havocs  
     - Read up on `filtered` blocks in rules  
+    - Can assert logical expressions like `assert balanceBefore > balanceAfter => e.msg.sender == owner`  
+      - Here, we say that assert if balanceBefore is greater than balanceAfter, then msg.sender was the owner  
   
   
   
