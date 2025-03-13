@@ -823,6 +823,10 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - `at init` would mean to rewind back to the init state of storage and then execute the command  
   - READ ABOUT `definition` KEYWORD! SEEMS AWESOME  
   - The Prover supports Foundry integration?! DO CHECK IT OUT  
+  - Explicit type conversions can be done by adding `to_` prefix to the data-type  
+    - eg: `to_bytes32(0)`  
+  - For comparing function selectors: `f.selector == sig:xyz(uint).selector`  
+    - The `sig:` prefix before manually entering a function signature is necessary in CVL  
   
   
   
