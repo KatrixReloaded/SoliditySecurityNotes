@@ -821,6 +821,42 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
   - `lastStorage` gives us the current state of storage  
     - eg: `storage init = lastStorage;`  
     - `at init` would mean to rewind back to the init state of storage and then execute the command  
+  - READ ABOUT `definition` KEYWORD! SEEMS AWESOME  
+  - The Prover supports Foundry integration?! DO CHECK IT OUT  
+  
+  
+  
+  
+**The Art and Science of Designing Specifications**  
+----------  
+### Unit-test Style Rules  
+- Describe what they should return and revert  
+- Describe what their arguments are  
+- Describe what effects they should have  
+  
+### Variable Relationships and Changes  
+- Variable Relationships  
+  - For each pair of variables, ask "How are they related?"  
+  - Each relationship can be written as an invariant  
+  - Include related contracts!  
+- Variable Changes  
+  - For each variable, ask "How can it change, and when?"  
+  - Each variable has one or more parametric rules(?)  
+  
+### State Transition Diagrams  
+- Contracts have a natural "flow-chart" feel to them, these can be set up as rules  
+- Define properties of each state  
+- Each transition can have one or more rules, like variable changes  
+  
+### Stakeholder Rules  
+- Think about what can go wrong from user's perspective  
+- Each user (horror) story can be turned into a property  
+  
+### High-level Properties  
+- If this goes up, that goes up (correlation)  
+- If this is zero, that is zero  
+- Two small operations are the same as one big operation (additivity)  
+- Different ways to do the same thing should have the same effect  
   
   
   
@@ -847,6 +883,7 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 > 9. [**The Art of Auditing**](https://web3-sec.gitbook.io/art-of-auditing) Whenever you feel stuck or just need some motivation.  
 > 10. [**sc-exploits-minimized**](https://github.com/Cyfrin/sc-exploits-minimized) Check out all the exploits to have a better understanding.  
 > 11. [**ToB Secure Contracts**](https://secure-contracts.com) Guides for all the tools I need to use and better understanding of invariants.  
+> 12. [**Foundry Integration Docs for Certora**](https://docs.certora.com/en/latest/docs/cvl/foundry-integration.html) will guide you how to use your fuzz tests as FV specs in Certora!  
   
   
   
