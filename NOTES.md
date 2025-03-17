@@ -827,6 +827,24 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - eg: `to_bytes32(0)`  
   - For comparing function selectors: `f.selector == sig:xyz(uint).selector`  
     - The `sig:` prefix before manually entering a function signature is necessary in CVL  
+  - Read up on [Gambit](https://docs.certora.com/en/latest/docs/gambit/index.html#gambit-intro) to improve the quality of specifications  
+  - Mutation testing refers to changing the verified code in a way that is likely to cause a bug, and then checking that the modified code does not pass verification  
+  
+  
+  
+  
+**Mutation Testing with Gambit**  
+----------  
+- Gambit does first-order mutation, meaning that it will create a bunch of variations of a given contract but each variation will have a single change only  
+- Mutations are *not* combined to create complex mutants  
+- Then, each of these mutations are verified to check the quality and to help improve the specifications  
+- Gambit -> Mutation Generation + Certora -> Mutation Verificati on  
+- If the mutant passes the verification, it often means that there is a loophole in the spec  
+- If the mutant fails the verification, it is basically evidence that the spec is good  
+- .sol -> Solidity Compiler -> .json .ast -> Mutator (thin wrapper around the .ast datastructure) -> .sol (multiple, all possible mutants) -> Filter & Validate -> .sol (multiple, also calls the compiler for each mutant to make sure that the mutants compile properly) -> Mutant Writer -> log, metadata, mutants (.sol files)  
+- Multiple types of mutation operators  
+- Can localize mutants to some contracts and some functions only, and you can choose the mutation operators in the conf file  
+- Gambit may already be integrated with Foundry  
   
   
   
