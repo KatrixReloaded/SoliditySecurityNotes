@@ -814,6 +814,8 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
       - And, `DISPATCHER(false)` indicates the opposite  
     - `prover_args` is a flag for the config file that allows you to provide fine-grained tuning options to the Prover.  
       - One of these is `-optimisticFallback true` which indicates that if there are any calls to functions that are out of scope, they cannot arbitrarily change the state of our contract. Setting it to false would lead to default havocs  
+      - Another flag is `-solvers` which allows you to provide an array of solvers you require for the verification  
+        - eg. `"-solvers [z3:def{randomSeed=1},z3:def{randomSeed=2},z3:def{randomSeed=3},z3:def{randomSeed=4},z3:def{randomSeed=5},z3:def{randomSeed=6},z3:def{randomSeed=7},z3:lia2]",`  
   - Read up on `filtered` blocks in rules  
   - Can assert logical expressions like `assert balanceBefore > balanceAfter => e.msg.sender == owner`  
     - Here, we say that assert if balanceBefore is greater than balanceAfter, then msg.sender was the owner  
@@ -829,6 +831,26 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
     - The `sig:` prefix before manually entering a function signature is necessary in CVL  
   - Read up on [Gambit](https://docs.certora.com/en/latest/docs/gambit/index.html#gambit-intro) to improve the quality of specifications  
   - Mutation testing refers to changing the verified code in a way that is likely to cause a bug, and then checking that the modified code does not pass verification  
+  - In invariants, you can add a `filtered` block to add filters like:  
+    ```javascript
+    invariant xyz()
+        ...
+    {
+        filtered {
+            f -> f.selector != sig:abc().selector
+        }
+    }
+    ```
+  - And also, you can add a `preserved` block to specify some action that should preserve an invariant like:  
+    ```javascript
+    invariant xyz(uint256 x)
+        ...
+    {
+        preserved abc(uint256 i) {
+            requireInvariant xyz(i);
+        }
+    }
+    ```
   
   
   
