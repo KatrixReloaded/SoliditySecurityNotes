@@ -36,6 +36,8 @@
   - [**Formal Verification**](#formal-verification)
     - [**Halmos**](#halmos)
     - [**Certora**](#certora)
+  - [**Mutation Testing with Gambit**](#mutation-testing-with-gambit)
+  - [**The Art and Science of Designing Specifications**](#the-art-and-science-of-designing-specifications)
   - [**Random Notes**](#random-notes)
   - [**Useful Links**](#useful-links)
   - [**References**](#references)
@@ -343,6 +345,14 @@ fail_on_revert = false
 It is very important to know what tokens one protocol is working with in order to check for weird ERC20 tokens. They can break our contract with their strange states/rules.  
   
 Weird ERC20 list - [9]  
+  
+  
+  
+  
+**Oracle Manipulation**  
+--------  
+  
+Let's assume a lending protocol requires 150% collateral, gets price feeds from a DEX (eg. Uniswap). An attacker can manipulate the price of the token set as collateral on the DEX, inflate it like crazy, put down, for example, $150 worth of token A, but since the price is inflated on the oracle, the protocol thinks that the collateral amount of token A is actually worth, like, $300. So, the attacker can now borrow $200 of token B from the protocol, by only putting up $150 as collateral.  
   
   
   
