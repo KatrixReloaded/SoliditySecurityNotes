@@ -38,3 +38,9 @@
 - `++i` is slightly cheaper than `i++` and `i = i+1`  
 - `internal` and `private` functions can eliminate duplicate code  
 - If there is a value being read in a loop multiple times, we can cache it in the loop, it's cheaper  
+  
+## Standalone  
+### Merkle Proof  
+- Merkle trees sort **pairs** and not the entire level  
+- The hash values are treated as 256-bit integers and compared to see which is the lower value, the lower value is added to the left and the greater to the right, and then they are hashed together  
+- This pair sorting is done at each level, irrespective of the leaves  
