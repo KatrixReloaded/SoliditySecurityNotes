@@ -353,6 +353,8 @@ Weird ERC20 list - [9]
 --------  
   
 Let's assume a lending protocol requires 150% collateral, gets price feeds from a DEX (eg. Uniswap). An attacker can manipulate the price of the token set as collateral on the DEX, inflate it like crazy, put down, for example, $150 worth of token A, but since the price is inflated on the oracle, the protocol thinks that the collateral amount of token A is actually worth, like, $300. So, the attacker can now borrow $200 of token B from the protocol, by only putting up $150 as collateral.  
+**Note:** Off-chain oracles like Chainlink and Pyth set up TWAP by default, they have multiple sources and filter out unreasonable prices on their own. Manipulating them may be impossible unless the protocol using them sets up custom price feeds for certain tokens and use different sources on both.  
+On-chain oracles are the ones most prone to oracle manipulation.  
   
   
   
@@ -697,7 +699,9 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 - In upgradeable contracts, the immutable variables are not migrated to the upgraded contract since they are not in storage.  
 - MSTORE does not update the free memory pointer. If you have a normal Solidity code after an assembly block that uses MSTORE, most likely, the Solidity code is overwriting whatever was stored using MSTORE.  
 - Be wary of precision loss and division by 0 whenever division is used.  
+- Make sure contracts are safe from signature replay attacks, same chain AND cross-chain  
 > #### **Note:** If a function executes a transfer, and then reverts afterwards due to some other condition or scenario, the entire state of the contract reverts. Meaning that the transfer is also reverted.  
+- Whale griefing attacks  
   
   
   
@@ -919,6 +923,13 @@ In this case, if I delete x and then call readObj again, I'll still see the valu
 ----------  
 - **TWAP**: Time-Weighted Average Price  
   -  It is a price calculation method used in Uniswap(added in v2, improved in v3) that averages prices over a period of time.  
+- If I create a `pure` function, I can read storage in it if I write in Yul  
+- I can pass negative numbers in Solana  
+- While signing a message, if there are any dynamic values like `bytes`, I need to hash(keccak) it before signing  
+- `CREATE2` depends on bytecode, deployer address and salt  
+  - Constructor params are concatenated to the bytecode  
+- Should submit suspicious arithmetic computations as well  
+- What is bad debt?  
   
   
   
